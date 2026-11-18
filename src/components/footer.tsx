@@ -1,35 +1,48 @@
 import Link from "next/link"
-import { Instagram, Linkedin, Globe, Github, ArrowUpRight } from "lucide-react"
+import { Instagram, Linkedin, Globe, Github } from "lucide-react"
 import { Logo } from "@/components/logo"
-import { founderLinks, sipAndShelfLinks, tgfSocials } from "@/lib/links"
+import { bookLinks, founderLinks, sipAndShelfLinks, tgfSocials } from "@/lib/links"
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const
 
 const columns = [
     {
-        title: "Explore",
+        title: "Farming",
         links: [
-            { label: "Farming", href: "/farming" },
-            { label: "Our Harvest", href: "/farming/harvest" },
-            { label: "Books", href: "/books" },
-            { label: "IT-DevOps", href: "/devops" },
+            { label: "Overview", href: "/farming" },
+            { label: "Dairy", href: "/farming/dairy" },
+            { label: "Harvest", href: "/farming/harvest" },
+            { label: "Gallery", href: "/farming/gallery" },
+            { label: "How to order", href: "/farming/order" },
+        ],
+    },
+    {
+        title: "Books",
+        links: [
+            { label: "Art of Attraction", href: "/books" },
+            { label: "About the author", href: "/books/author" },
+            { label: "Buy the book", href: bookLinks.buy },
+            { label: "Book a call", href: bookLinks.call },
+            { label: "Book website", href: bookLinks.site },
+        ],
+    },
+    {
+        title: "IT-DevOps",
+        links: [
+            { label: "Overview", href: "/devops" },
+            { label: "Products", href: "/devops/products" },
+            { label: "Experience", href: "/devops/experience" },
+            { label: "Projects", href: "/devops/projects" },
+            { label: "Skills", href: "/devops/skills" },
+        ],
+    },
+    {
+        title: "TGF Group",
+        links: [
+            { label: "About the founder", href: "/about" },
             { label: "Perfume", href: "/perfume" },
-        ],
-    },
-    {
-        title: "Company",
-        links: [
-            { label: "About the Founder", href: "/about" },
+            { label: "Sip & Shelf", href: sipAndShelfLinks.site },
             { label: "Contact", href: "/contact" },
-            { label: "Sip & Shelf", href: sipAndShelfLinks.site, external: true },
-        ],
-    },
-    {
-        title: "Founder",
-        links: [
-            { label: "LinkedIn", href: founderLinks.linkedin, external: true },
-            { label: "Portfolio", href: founderLinks.portfolio, external: true },
-            { label: "GitHub", href: founderLinks.github, external: true },
         ],
     },
 ]
@@ -43,52 +56,55 @@ const socials = [
 
 export function Footer() {
     return (
-        <footer className="border-t bg-secondary/40">
-            <div className="container grid grid-cols-2 gap-10 py-14 sm:grid-cols-3 md:grid-cols-[1.4fr_repeat(3,1fr)]">
-                <div className="col-span-2 space-y-4 sm:col-span-3 md:col-span-1">
-                    <Logo />
-                    <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-                        Organic farming, books, technology and fragrance, run with care from Firozpur, Punjab.
-                    </p>
-                    <div className="flex items-center gap-2">
-                        {socials.map(({ label, href, icon: Icon }) => (
-                            <Link
-                                key={label}
-                                href={href}
-                                {...external}
-                                aria-label={label}
-                                className="grid h-10 w-10 place-items-center rounded-full border bg-background text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                            >
-                                <Icon className="h-4 w-4" />
-                            </Link>
-                        ))}
+        <footer className="bg-muted text-[13px] leading-relaxed text-muted-foreground">
+            <div className="container py-12">
+                <div className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <Logo className="text-foreground" />
+                        <p className="mt-2 max-w-md">Organic farming, books, technology and fragrance from Firozpur, Punjab.</p>
                     </div>
+                    <ul className="flex items-center gap-2">
+                        {socials.map(({ label, href, icon: Icon }) => (
+                            <li key={label}>
+                                <Link
+                                    href={href}
+                                    {...external}
+                                    aria-label={label}
+                                    className="grid h-10 w-10 place-items-center rounded-full bg-background text-foreground/70 transition-colors hover:text-foreground"
+                                >
+                                    <Icon className="h-[18px] w-[18px]" />
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-                {columns.map((column) => (
-                    <div key={column.title} className="space-y-4">
-                        <p className="text-sm font-semibold">{column.title}</p>
-                        <ul className="space-y-2.5 text-sm text-muted-foreground">
-                            {column.links.map((link) => (
-                                <li key={link.label}>
-                                    <Link
-                                        href={link.href}
-                                        {...("external" in link && link.external ? external : {})}
-                                        className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
-                                    >
-                                        {link.label}
-                                        {"external" in link && link.external && <ArrowUpRight className="h-3 w-3" />}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-            <div className="border-t">
-                <div className="container flex flex-col items-center justify-between gap-2 py-5 text-xs text-muted-foreground sm:flex-row">
-                    <p>© {new Date().getFullYear()} TGF Group. Firozpur, Punjab.</p>
-                    <p>Grown in Punjab. Built with care.</p>
+                <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-8 py-8 md:grid-cols-4">
+                    {columns.map((column) => (
+                        <div key={column.title}>
+                            <p className="font-semibold text-foreground">{column.title}</p>
+                            <ul className="mt-3 space-y-2">
+                                {column.links.map((link) => {
+                                    const isExternal = /^https?:\/\//.test(link.href)
+                                    return (
+                                        <li key={link.label}>
+                                            <Link href={link.href} {...(isExternal ? external : {})} className="transition-colors hover:text-foreground hover:underline">
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    ))}
+                </nav>
+
+                <div className="flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p>Copyright © {new Date().getFullYear()} TGF Group. Firozpur, Punjab, India.</p>
+                    <p>
+                        Founded by{" "}
+                        <Link href="/about" className="text-foreground hover:underline">Gurpreet Singh</Link>
+                    </p>
                 </div>
             </div>
         </footer>

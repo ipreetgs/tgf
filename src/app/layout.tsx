@@ -1,27 +1,45 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const serif = Fraunces({ subsets: ["latin"], variable: "--font-serif", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "TGF Group | Rooted in Punjab",
+    default: "TGF Group | Rooted in Punjab. Built for today.",
     template: "%s | TGF Group",
   },
-  description: "TGF Group from Firozpur, Punjab: organic farming, books, IT-DevOps and perfume.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: "Gurpreet Singh" }],
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_IN",
+    url: "/",
+    title: "TGF Group | Rooted in Punjab. Built for today.",
+    description: SITE_DESCRIPTION,
+    images: [{ url: "/tgf_home_hero.webp", width: 1179, height: 614, alt: "TGF farm fields in Firozpur, Punjab" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TGF Group",
+    description: SITE_DESCRIPTION,
+    images: ["/tgf_home_hero.webp"],
+  },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf8f3" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d1210" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 
@@ -32,10 +50,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen bg-background font-sans antialiased", sans.variable, serif.variable, mono.variable)}>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", sans.variable, mono.variable)}>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:font-medium focus:text-primary-foreground"
         >
           Skip to content
         </a>

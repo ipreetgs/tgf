@@ -13,25 +13,24 @@ const config = {
         container: {
             center: true,
             padding: {
-                DEFAULT: "1rem",
+                DEFAULT: "1.25rem",
                 sm: "1.5rem",
-                lg: "2rem",
+                lg: "2.5rem",
             },
             screens: {
-                "2xl": "1400px",
+                "2xl": "1240px",
             },
         },
         extend: {
             fontFamily: {
                 sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
-                serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
                 mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
             },
+            fontSize: {
+                // Body copy is 17px, like the premium product sites it sits beside.
+                body: ["1.0625rem", { lineHeight: "1.5" }],
+            },
             colors: {
-                gold: {
-                    DEFAULT: "hsl(var(--gold))",
-                    foreground: "hsl(var(--gold-foreground))",
-                },
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -40,6 +39,7 @@ const config = {
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",
+                    hover: "hsl(var(--primary-hover))",
                 },
                 secondary: {
                     DEFAULT: "hsl(var(--secondary))",
@@ -65,9 +65,17 @@ const config = {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
+                // Fixed dark surfaces for the IT-DevOps and Perfume tiles, in both themes.
+                ink: {
+                    DEFAULT: "#000000",
+                    raised: "#161617",
+                    foreground: "#F5F5F7",
+                    muted: "#A1A1A6",
+                },
             },
             borderRadius: {
-                xl: "calc(var(--radius) + 4px)",
+                tile: "28px",
+                xl: "18px",
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
@@ -81,10 +89,15 @@ const config = {
                     from: { height: "var(--radix-accordion-content-height)" },
                     to: { height: "0" },
                 },
+                "fade-up": {
+                    from: { transform: "translateY(14px)" },
+                    to: { transform: "translateY(0)" },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
+                "fade-up": "fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both",
             },
         },
     },
