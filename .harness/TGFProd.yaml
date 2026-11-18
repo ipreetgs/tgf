@@ -1,0 +1,57 @@
+pipeline:
+  name: TGF-Prod
+  identifier: TGFProd
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1702454216196
+        repoName: tgf
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Deploy
+        identifier: Build_and_Deploy
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: false
+          platform:
+            os: Linux
+            arch: Arm64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install and build
+                  identifier: install_and_build
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: node:20
+                    shell: Sh
+                    command: |
+                      npm ci
+                      npm run build
+              - step:
+                  type: Run
+                  name: Deploy to Firebase
+                  identifier: deploy_to_firebase
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: node:20
+                    shell: Sh
+                    envVariables:
+                      FIREBASE_SA: <+secrets.getValue("firebase_sa_json")>
+                    command: |
+                      printf '%s' "$FIREBASE_SA" > /tmp/firebase-sa.json
+                      export GOOGLE_APPLICATION_CREDENTIALS=/tmp/firebase-sa.json
+                      npx --yes firebase-tools deploy --only hosting --project thegfarm --non-interactive
+                      rm -f /tmp/firebase-sa.json
