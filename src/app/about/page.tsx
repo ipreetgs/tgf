@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Github, Linkedin, Instagram, Facebook, Globe, MapPin, Mail } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { aegisLinks, founderLinks, sipAndShelfLinks } from "@/lib/links"
 
 export default function AboutPage() {
     return (
@@ -13,14 +14,15 @@ export default function AboutPage() {
                     <div className="flex flex-col md:flex-row items-center gap-12">
                         <div className="flex-1 space-y-6 text-center md:text-left">
                             <div className="inline-block rounded-full bg-slate-200 dark:bg-slate-800 px-3 py-1 text-sm font-medium">
-                                Founder & Visionary
+                                Founder, TGF &amp; Sip &amp; Shelf
                             </div>
                             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
                                 Gurpreet Singh
                             </h1>
                             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl">
-                                Technologist by Profession, Farmer by Heart.
-                                Bridging the gap between Silicon Valley methods and Indus Valley traditions.
+                                Technologist by profession, farmer by heart.
+                                I spend my days automating cloud infrastructure and the rest of my time on the farm,
+                                writing, and building things people can actually use.
                             </p>
                             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                                 <Link href="https://linkedin.com/in/ipreetgs" target="_blank">
@@ -72,16 +74,29 @@ export default function AboutPage() {
                             <div>
                                 <h2 className="text-3xl font-bold mb-4">About Me</h2>
                                 <p className="text-slate-600 dark:text-slate-300 leading-loose">
-                                    I am a dynamic <strong>DevOps Engineer</strong> and a <strong>modern agriculturalist</strong>. This unique combination allows me to view the world through two distinct yet complementary lenses: the precise, automated world of cloud infrastructure, and the organic, patient rhythms of nature.
+                                    I&apos;m a <strong>DevOps engineer</strong> and a <strong>farmer</strong>. People are often surprised by
+                                    that mix, but the two jobs have a lot in common. Servers and crops both need patience, routine and
+                                    someone who notices small problems before they turn into big ones.
                                 </p>
                                 <p className="text-slate-600 dark:text-slate-300 leading-loose mt-4">
-                                    On the technical front, I have spent over 4.5 years designing robust CI/CD pipelines, automating complex infrastructures using Terraform and Ansible, and ensuring system resilience. My journey has taken me from hands-on network security to leading cloud migration projects at scale. I believe in the power of code to solve problems, increase efficiency, and create scalable systems that stand the test of time.
+                                    For over 4.5 years I&apos;ve built CI/CD pipelines, automated infrastructure with Terraform and Ansible,
+                                    and kept systems running when it counts. I started in hands-on network security and went on to lead
+                                    cloud migrations. I like code that quietly solves a real problem and keeps working long after it ships.
                                 </p>
                                 <p className="text-slate-600 dark:text-slate-300 leading-loose mt-4">
-                                    Simultaneously, I am deeply connected to my heritage. At <strong>TGF</strong>, I apply modern methodologies to traditional farming. We don't just grow crops; we cultivate sustainability and health. Whether it's ensuring the purity of our buffalo milk or the quality of our Basmati harvest, I bring the same level of attention to detail to the farm as I do to a production deployment.
+                                    At <strong>TGF</strong>, I bring modern methods to traditional farming. We care about the purity of our
+                                    buffalo milk and the quality of our Basmati harvest the same way I care about a production deployment:
+                                    every detail counts.
                                 </p>
                                 <p className="text-slate-600 dark:text-slate-300 leading-loose mt-4">
-                                    My writing, particularly through <em>"The Art of Attraction"</em>, is where these worlds converge—exploring human connection, philosophy, and the subtle art of living a balanced life.
+                                    I&apos;m also the founder and CEO of <strong>Sip &amp; Shelf</strong>, an app that lets readers lend, swap and
+                                    sell their old books and pick them up at a nearby cafe. I wanted a reason to read more and to meet the
+                                    people who read too. On the engineering side I build <strong>Aegis</strong>, an open-source
+                                    vulnerability-assessment framework for IT and DevOps teams.
+                                </p>
+                                <p className="text-slate-600 dark:text-slate-300 leading-loose mt-4">
+                                    And when I write, as in <em>&quot;The Art of Attraction&quot;</em>, it&apos;s about people: how we connect,
+                                    and how to live a balanced life.
                                 </p>
                             </div>
 
@@ -133,10 +148,19 @@ export default function AboutPage() {
                                 <h3 className="font-semibold mb-4">Quick Links</h3>
                                 <ul className="space-y-2 text-sm">
                                     <li>
-                                        <Link href="/devops" className="hover:underline text-blue-600 dark:text-blue-400">View Professional Portfolio &rarr;</Link>
+                                        <Link href="/devops" className="hover:underline text-blue-600 dark:text-blue-400">See my IT-DevOps work &rarr;</Link>
                                     </li>
                                     <li>
-                                        <Link href="/books" className="hover:underline text-amber-600 dark:text-amber-400">Read "Art of Attraction" &rarr;</Link>
+                                        <Link href={founderLinks.portfolio} target="_blank" rel="noopener noreferrer" className="hover:underline text-green-600 dark:text-green-400">Visit my portfolio &rarr;</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={sipAndShelfLinks.site} target="_blank" rel="noopener noreferrer" className="hover:underline text-orange-600 dark:text-orange-400">Try Sip &amp; Shelf &rarr;</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={aegisLinks.repo} target="_blank" rel="noopener noreferrer" className="hover:underline text-emerald-600 dark:text-emerald-400">Aegis on GitHub &rarr;</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/books" className="hover:underline text-amber-600 dark:text-amber-400">Read &quot;Art of Attraction&quot; &rarr;</Link>
                                     </li>
                                 </ul>
                             </div>

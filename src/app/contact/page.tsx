@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Briefcase, Github, Instagram, Linkedin, Mail, Send, Share2 } from "lucide-react"
+import { Briefcase, Github, Globe, Instagram, Linkedin, Mail, Send, Share2 } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { founderLinks, sipAndShelfLinks, tgfSocials } from "@/lib/links"
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -32,8 +33,13 @@ export default function ContactPage() {
     }
 
     const socialLinks = [
-        { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/ipreetgs", color: "text-blue-600" },
-        { name: "GitHub", icon: Github, url: "https://ipreetgs.github.io/u/", color: "text-gray-900 dark:text-gray-100" },
+        { name: "TGF on Instagram", icon: Instagram, url: tgfSocials.instagram, color: "text-pink-600" },
+        { name: "TGF on LinkedIn", icon: Linkedin, url: tgfSocials.linkedin, color: "text-blue-700" },
+        { name: "Sip & Shelf on Instagram", icon: Instagram, url: sipAndShelfLinks.instagram, color: "text-amber-600" },
+        { name: "Sip & Shelf on LinkedIn", icon: Linkedin, url: sipAndShelfLinks.linkedin, color: "text-amber-700" },
+        { name: "LinkedIn", icon: Linkedin, url: founderLinks.linkedin, color: "text-blue-600" },
+        { name: "Portfolio", icon: Globe, url: founderLinks.portfolio, color: "text-green-600" },
+        { name: "GitHub", icon: Github, url: founderLinks.github, color: "text-gray-900 dark:text-gray-100" },
         { name: "Instagram (Personal)", icon: Instagram, url: "https://instagram.com/__gurpreet__23", color: "text-pink-600" },
         { name: "Instagram (Public)", icon: Instagram, url: "https://www.instagram.com/ipreetgs", color: "text-purple-600" },
         { name: "Facebook", icon: Share2, url: "https://www.facebook.com/ipreetgs/", color: "text-blue-800" },
@@ -46,9 +52,9 @@ export default function ContactPage() {
             {/* Header */}
             <section className="py-20 bg-stone-900 text-white text-center">
                 <div className="container px-4">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Let's Connect</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Let&apos;s Connect</h1>
                     <p className="text-xl text-stone-300 max-w-2xl mx-auto">
-                        Whether it's about technology, farming, or just a friendly chat, I'm always open to new conversations.
+                        Want to order from the farm, ask about Sip &amp; Shelf, talk tech, or just say hi? Drop a message and I&apos;ll get back to you.
                     </p>
                 </div>
             </section>
@@ -126,7 +132,7 @@ export default function ContactPage() {
                             </h2>
                             <div className="grid gap-4">
                                 {socialLinks.map((link) => (
-                                    <Link key={link.name} href={link.url} target="_blank" className="block group">
+                                    <Link key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="block group">
                                         <div className="flex items-center p-4 bg-white dark:bg-stone-900 rounded-lg shadow-sm border border-stone-200 dark:border-stone-800 hover:shadow-md hover:border-amber-500 transition-all">
                                             <div className={`p-3 rounded-full bg-stone-100 dark:bg-stone-800 mr-4 group-hover:bg-amber-100 dark:group-hover:bg-amber-900/30 transition-colors`}>
                                                 <link.icon className={`h-6 w-6 ${link.color}`} />
