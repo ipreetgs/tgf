@@ -30,20 +30,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: HarnessSAST
-                  name: HarnessCode_1
-                  identifier: HarnessCode_1
-                  spec:
-                    mode: orchestration
-                    config: sast
-                    target:
-                      type: repository
-                      detection: auto
-                    advanced:
-                      log:
-                        level: info
-                      fail_on_severity: critical
-              - step:
                   type: Run
                   name: Install and build
                   identifier: install_and_build
