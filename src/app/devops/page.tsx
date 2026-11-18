@@ -73,7 +73,7 @@ export default function DevOpsPage() {
                         <dl className="grid max-w-lg grid-cols-3 gap-4 border-t pt-6">
                             {[
                                 { label: "Role", value: "Senior DevOps" },
-                                { label: "Experience", value: "4.5+ years" },
+                                { label: "Experience", value: "5+ years" },
                                 { label: "Building", value: "2 products" },
                             ].map((fact) => (
                                 <div key={fact.label}>
