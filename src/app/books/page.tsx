@@ -1,104 +1,109 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { BookOpen, Star, User, ShoppingCart, Phone } from "lucide-react"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { BookOpen, ShoppingCart, Phone, Quote, ArrowRight, Linkedin } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { SectionHeading } from "@/components/section-heading"
+import { founderLinks } from "@/lib/links"
+
+export const metadata: Metadata = {
+    title: "Books",
+    description: "Art of Attraction by Gurpreet Singh: the psychology of confidence, connection and presence.",
+}
+
+const external = { target: "_blank", rel: "noopener noreferrer" } as const
+const buyUrl = "https://aofa-7bfb7.web.app/buy.html"
+const callUrl = "https://aofa-7bfb7.web.app/booking.html"
+
+const philosophy = [
+    { title: "Mindset over method", desc: "Confidence isn't a performance. It's not needing validation. Build a core so strong that rejection stops mattering." },
+    { title: "Emotional polarity", desc: "Attraction needs tension. Understand masculine and feminine energy, and how to hold your ground without being aggressive." },
+    { title: "Social intelligence", desc: "Read what isn't said. Learn the body language and presence that people respond to instinctively." },
+]
+
+const audience = [
+    { title: "The high performer", desc: "You've sorted your career and finances, but your love life feels like the one thing you can't solve." },
+    { title: "The seeker", desc: "You're tired of gimmicks and want a real understanding of human nature that helps in every interaction." },
+    { title: "The realist", desc: "You value truth over comfort, and you're ready to face how dating actually works." },
+]
+
+const testimonials = [
+    "This book didn't just change how I date. It changed how I walk into a room, how I negotiate business deals, and how I view myself.",
+    "Finally, a guide that doesn't rely on 'pickup' tricks. It's about genuine self-improvement and understanding human psychology.",
+]
 
 export default function BooksPage() {
     return (
-        <div className="flex flex-col min-h-screen font-serif bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100">
-            {/* Hero Section */}
-            <section className="relative w-full py-24 lg:py-32 xl:py-48 bg-stone-100 dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800">
-                <div className="container px-4 md:px-6">
-                    <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-                        <div className="flex flex-col justify-center space-y-6">
-                            <div className="inline-block rounded-lg bg-amber-100 dark:bg-amber-900/30 px-3 py-1 text-sm font-medium text-amber-800 dark:text-amber-300 w-fit">
-                                The Psychology of Connection
-                            </div>
-                            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none italic">
-                                Art of Attraction
-                            </h1>
-                            <h2 className="text-xl font-medium text-stone-600 dark:text-stone-400">
-                                Attraction Is Not Chased. It Is Created.
-                            </h2>
-                            <p className="max-w-[600px] text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
-                                Stop relying on logic where emotions decide. The definitive guide to understanding the unspoken psychology of polarity, confidence, and magnetic presence.
-                            </p>
-                            <div className="flex flex-col gap-3 min-[400px]:flex-row pt-4">
-                                <Link href="https://aofa-7bfb7.web.app/buy.html" target="_blank">
-                                    <Button className="bg-amber-800 hover:bg-amber-900 text-white dark:bg-amber-700 dark:hover:bg-amber-600 h-11 px-8">
-                                        <ShoppingCart className="mr-2 h-4 w-4" /> Buy The Book
-                                    </Button>
-                                </Link>
-                                <Link href="https://aofa-7bfb7.web.app/booking.html" target="_blank">
-                                    <Button variant="outline" className="border-amber-800 text-amber-800 dark:border-amber-400 dark:text-amber-400 h-11 px-8 hover:bg-amber-50 dark:hover:bg-amber-900/20">
-                                        <Phone className="mr-2 h-4 w-4" /> Book a Call
-                                    </Button>
-                                </Link>
-                            </div>
+        <div className="flex flex-col">
+            {/* Hero */}
+            <section className="bg-grain border-b">
+                <div className="container grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+                    <div className="space-y-6">
+                        <p className="eyebrow">The psychology of connection</p>
+                        <h1 className="text-5xl font-semibold italic leading-[1.05] sm:text-6xl">Art of Attraction</h1>
+                        <p className="font-serif text-2xl text-muted-foreground">Attraction is not chased. It is created.</p>
+                        <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+                            Stop relying on logic where emotions decide. A clear guide to the unspoken psychology of polarity,
+                            confidence and magnetic presence.
+                        </p>
+                        <div className="flex flex-wrap gap-3 pt-2">
+                            <Button asChild size="lg" variant="gold">
+                                <Link href={buyUrl} {...external}><ShoppingCart className="h-4 w-4" /> Buy the book</Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline">
+                                <Link href={callUrl} {...external}><Phone className="h-4 w-4" /> Book a call</Link>
+                            </Button>
                         </div>
-                        <div className="flex justify-center lg:justify-end">
-                            {/* Book Cover Visual */}
-                            <div className="relative w-[320px] h-[500px] bg-gradient-to-br from-stone-800 to-stone-900 rounded-lg shadow-2xl flex flex-col items-center justify-center p-8 border-r-8 border-stone-950 text-white transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
-                                <div className="absolute top-0 right-0 p-4 opacity-20">
-                                    <BookOpen className="w-24 h-24" />
-                                </div>
-                                <h3 className="text-3xl font-bold text-center mb-2 italic">Art of <br />Attraction</h3>
-                                <div className="w-16 h-1 bg-amber-500 my-4" />
-                                <p className="text-stone-400 text-sm text-center tracking-widest uppercase">The Psychology of Connection</p>
+                    </div>
+
+                    {/* Book cover */}
+                    <div className="flex justify-center lg:justify-end">
+                        <div className="relative h-[440px] w-[290px] -rotate-2 transition-transform duration-500 hover:rotate-0 sm:h-[480px] sm:w-[320px]">
+                            <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-lg bg-gold/30" aria-hidden />
+                            <div className="relative flex h-full flex-col items-center rounded-lg border-r-8 border-black/40 bg-gradient-to-br from-[#2a2117] to-[#14100b] p-8 text-[#f3e9d7] shadow-2xl">
+                                <BookOpen className="absolute right-5 top-5 h-16 w-16 opacity-10" />
                                 <div className="mt-auto text-center">
-                                    <p className="text-sm font-medium text-amber-500">Gurpreet Singh</p>
+                                    <p className="font-serif text-4xl font-semibold italic leading-tight">Art of<br />Attraction</p>
+                                    <div className="mx-auto my-5 h-0.5 w-14 bg-[#e6c27a]" />
+                                    <p className="text-xs uppercase tracking-[0.25em] text-white/50">The psychology of connection</p>
                                 </div>
+                                <p className="mt-auto text-sm font-medium text-[#e6c27a]">Gurpreet Singh</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* The Philosophy */}
-            <section className="w-full py-12 md:py-24 bg-white dark:bg-stone-950">
-                <div className="container px-4 md:px-6">
-                    <div className="text-center mb-16">
-                        <BookOpen className="h-10 w-10 mx-auto text-amber-700 mb-4 opacity-50" />
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-stone-900 dark:text-stone-100">The Philosophy</h2>
-                        <p className="mt-4 text-lg text-stone-600 dark:text-stone-400">Most advice focuses on "tactics". We focus on <span className="text-amber-700 dark:text-amber-400 font-semibold italic">who you ARE</span>.</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {[
-                            { title: "Mindset Over Method", desc: "Confidence isn't a performance. It's the absence of the need for validation. Build a core so strong that rejection becomes irrelevant." },
-                            { title: "Emotional Polarity", desc: "Attraction requires tension. Learn the dynamics of masculine and feminine energy and how to hold your ground without being aggressive." },
-                            { title: "Social Intelligence", desc: "Read what isn't said. Master the sub-communications of body language and presence that trigger instinctual attraction." },
-                        ].map((item, i) => (
-                            <Card key={i} className="border-none shadow-lg bg-stone-50 dark:bg-stone-900">
-                                <CardContent className="pt-6">
-                                    <h3 className="text-xl font-bold mb-3 text-amber-800 dark:text-amber-500">{item.title}</h3>
-                                    <p className="text-stone-600 dark:text-stone-300 leading-relaxed">
-                                        {item.desc}
-                                    </p>
-                                </CardContent>
-                            </Card>
+            {/* Philosophy */}
+            <section className="py-16 md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading
+                        eyebrow="The philosophy"
+                        title={<>Most advice is about tactics. This book is about <span className="italic text-gold">who you are</span>.</>}
+                        align="center"
+                    />
+                    <div className="grid gap-5 md:grid-cols-3">
+                        {philosophy.map((item, i) => (
+                            <div key={item.title} className="rounded-2xl border bg-card p-7 shadow-sm">
+                                <p className="font-mono text-sm text-gold">0{i + 1}</p>
+                                <h3 className="mt-3 text-2xl font-semibold">{item.title}</h3>
+                                <p className="mt-3 leading-relaxed text-muted-foreground">{item.desc}</p>
+                            </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Target Audience */}
-            <section className="w-full py-16 md:py-24 bg-stone-100 dark:bg-stone-900/50">
-                <div className="container px-4 md:px-6">
-                    <h2 className="text-3xl font-bold text-center mb-12">Who Is This For?</h2>
-                    <div className="grid gap-8 md:grid-cols-3 mx-auto max-w-5xl">
-                        {[
-                            { title: "The High Performer", desc: "You've optimized your career and finances, but your romantic life feels like the only variable you can't solve." },
-                            { title: "The Seeker", desc: "You're tired of gimmicks. You want a deep, psychological understanding of human nature that applies to every interaction." },
-                            { title: "The Realist", desc: "You value truth over comfort. You're ready to face the harsh realities of dating markets to compete at the highest level." },
-                        ].map((item, i) => (
-                            <div key={i} className="flex flex-col items-center text-center space-y-3">
-                                <div className="h-2 w-2 rounded-full bg-amber-600 mb-2" />
-                                <h3 className="text-xl font-bold">{item.title}</h3>
-                                <p className="text-stone-600 dark:text-stone-400 leading-relaxed max-w-[300px]">
-                                    {item.desc}
-                                </p>
+            {/* Audience */}
+            <section className="border-y bg-secondary/40 py-16 md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading eyebrow="Who it's for" title="Is this book for you?" align="center" />
+                    <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-3">
+                        {audience.map((item) => (
+                            <div key={item.title} className="space-y-3 text-center">
+                                <span className="mx-auto block h-1.5 w-10 rounded-full bg-gold" aria-hidden />
+                                <h3 className="text-xl font-semibold">{item.title}</h3>
+                                <p className="mx-auto max-w-[300px] leading-relaxed text-muted-foreground">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -106,56 +111,45 @@ export default function BooksPage() {
             </section>
 
             {/* Testimonials */}
-            <section className="w-full py-16 md:py-24">
-                <div className="container px-4 md:px-6">
-                    <h2 className="text-3xl font-bold text-center mb-12 italic">Impact & Results</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        <Card className="bg-amber-50/50 dark:bg-stone-900 border-amber-200 dark:border-amber-900/30">
-                            <CardContent className="pt-8 pb-8 px-8 text-center italic text-lg leading-relaxed text-stone-700 dark:text-stone-300">
-                                "This book didn't just change how I date. It changed how I walk into a room, how I negotiate business deals, and how I view myself."
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-amber-50/50 dark:bg-stone-900 border-amber-200 dark:border-amber-900/30">
-                            <CardContent className="pt-8 pb-8 px-8 text-center italic text-lg leading-relaxed text-stone-700 dark:text-stone-300">
-                                "Finally, a guide that doesn't rely on 'pickup' tricks. It's about genuine self-improvement and understanding human psychology."
-                            </CardContent>
-                        </Card>
+            <section className="py-16 md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading eyebrow="Readers say" title="Impact & results" align="center" />
+                    <div className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
+                        {testimonials.map((quote) => (
+                            <figure key={quote} className="rounded-2xl border bg-card p-8 shadow-sm">
+                                <Quote className="h-7 w-7 text-gold/60" aria-hidden />
+                                <blockquote className="mt-4 font-serif text-lg italic leading-relaxed">&ldquo;{quote}&rdquo;</blockquote>
+                            </figure>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Author Section */}
-            <section className="w-full py-20 bg-amber-950 text-white">
-                <div className="container px-4 md:px-6">
-                    <div className="flex flex-col md:flex-row items-center gap-12 max-w-4xl mx-auto">
-                        <div className="relative w-64 h-64 shrink-0 rounded-full overflow-hidden border-4 border-amber-600/50 shadow-2xl">
-                            <Image
-                                src="/me.jpg"
-                                alt="Gurpreet Singh"
-                                fill
-                                className="object-cover"
-                            />
+            {/* Author */}
+            <section className="pb-16 md:pb-24">
+                <div className="container">
+                    <div className="grid items-center gap-10 rounded-3xl bg-gradient-to-br from-[#2a2117] to-[#14100b] p-8 text-[#f3e9d7] sm:p-12 md:grid-cols-[auto_1fr]">
+                        <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-full border-4 border-[#e6c27a]/40 shadow-2xl sm:h-56 sm:w-56">
+                            <Image src="/me.jpg" alt="Gurpreet Singh" fill sizes="224px" className="object-cover" />
                         </div>
-                        <div className="space-y-6 text-center md:text-left">
+                        <div className="space-y-5 text-center md:text-left">
                             <div>
-                                <h2 className="text-3xl font-bold mb-2">About the Author</h2>
-                                <h3 className="text-xl text-amber-400 font-medium">Gurpreet Singh</h3>
+                                <p className="eyebrow text-[#e6c27a]">About the author</p>
+                                <h2 className="mt-2 text-3xl font-semibold text-white">Gurpreet Singh</h2>
                             </div>
-                            <p className="text-stone-200 text-lg leading-relaxed">
-                                Unraveling the complexities of human dynamics through evolutionary psychology and practical application.
-                                Gurpreet isn't just an author; he is a technologist and modern thinker who applies systems thinking to social dynamics, helping men navigate the complexities of modern relationships with integrity and confidence.
+                            <p className="text-lg leading-relaxed text-white/80">
+                                Unraveling the complexities of human dynamics through evolutionary psychology and practical
+                                application. Gurpreet isn&apos;t just an author; he is a technologist and modern thinker who applies
+                                systems thinking to social dynamics, helping men navigate modern relationships with integrity and
+                                confidence.
                             </p>
-                            <div className="flex gap-4 justify-center md:justify-start pt-2">
-                                <Link href="/devops">
-                                    <Button variant="outline" className="text-amber-100 border-amber-700 hover:bg-amber-900 hover:text-white">
-                                        See My IT-DevOps Work
-                                    </Button>
-                                </Link>
-                                <Link href="https://linkedin.com/in/ipreetgs" target="_blank">
-                                    <Button className="bg-amber-700 hover:bg-amber-600 text-white">
-                                        Connect on LinkedIn
-                                    </Button>
-                                </Link>
+                            <div className="flex flex-wrap justify-center gap-3 md:justify-start">
+                                <Button asChild variant="gold">
+                                    <Link href={founderLinks.linkedin} {...external}><Linkedin className="h-4 w-4" /> Connect on LinkedIn</Link>
+                                </Button>
+                                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white hover:text-black">
+                                    <Link href="/about">More about Gurpreet <ArrowRight className="h-4 w-4" /></Link>
+                                </Button>
                             </div>
                         </div>
                     </div>

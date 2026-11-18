@@ -1,198 +1,181 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Sprout, Milk, ShieldCheck, Droplets, Leaf, Tractor, CheckCircle } from "lucide-react"
-import { Wheat } from "lucide-react"
+import type { Metadata } from "next"
 import Image from "next/image"
-
 import Link from "next/link"
+import { Milk, ShieldCheck, Droplets, Leaf, CheckCircle2, Wheat, ArrowRight, Instagram, MessageCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { SectionHeading } from "@/components/section-heading"
+import { tgfSocials } from "@/lib/links"
+
+export const metadata: Metadata = {
+    title: "Farming",
+    description: "Organic buffalo milk, desi ghee, Basmati rice and wheat from TGF's fields in Firozpur, Punjab.",
+}
+
+const promises = [
+    { icon: Leaf, title: "100% organic", text: "Organic farming methods without harmful pesticides or synthetic fertilisers." },
+    { icon: Droplets, title: "Pure & natural", text: "Raw, unprocessed milk and ghee. No preservatives, no additives." },
+    { icon: ShieldCheck, title: "Totally hygienic", text: "Automated milking and packaging, held to high safety standards." },
+]
+
+const gallery = [
+    { src: "/dairy2.webp", alt: "The TGF buffalo herd", caption: "Our pride: the herd", className: "sm:col-span-2 sm:row-span-2" },
+    { src: "/dairy1.webp", alt: "A calf on the farm" },
+    { src: "/farm1.webp", alt: "The farm house" },
+    { src: "/farm3.webp", alt: "Harvest season", caption: "Harvest season", className: "sm:col-span-2" },
+    { src: "/farm.webp", alt: "The farm at night" },
+]
 
 export default function FarmingPage() {
     return (
-        <div className="flex flex-col min-h-screen">
-            {/* Hero Section */}
-            <section className="relative w-full py-32 lg:py-48 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <Image
-                        src="/farm3.png"
-                        alt="Harvesting at TGF"
-                        fill
-                        className="object-cover brightness-[0.4]"
-                        priority
-                    />
-                </div>
-                <div className="container relative z-10 px-4 md:px-6 text-center text-white">
-                    <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl mb-4 text-green-100">
-                        Purity from Soil to Soul
-                    </h1>
-                    <p className="mx-auto max-w-[800px] text-lg md:text-xl text-green-50 mb-8 font-light">
-                        Experience the authentic taste of Punjab. 100% Organic, Preservative-Free, and Ethically Grown.
-                    </p>
-                    <div className="space-x-4">
-                        <Link href="/farming/harvest">
-                            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white border-none">Our Harvest</Button>
-                        </Link>
-                        <Link href="/contact">
-                            <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-green-900">Contact Us</Button>
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            {/* Values / Facts Section */}
-            <section className="w-full py-16 bg-white dark:bg-zinc-950">
-                <div className="container px-4 md:px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                        <div className="flex flex-col items-center space-y-4 p-6 rounded-lg bg-green-50 dark:bg-green-950/20">
-                            <div className="p-4 bg-green-100 dark:bg-green-900 rounded-full text-green-600 dark:text-green-400">
-                                <Leaf className="h-8 w-8" />
-                            </div>
-                            <h3 className="text-xl font-bold">100% Organic</h3>
-                            <p className="text-muted-foreground">Certified organic farming methods without harmful pesticides or synthetic fertilizers.</p>
-                        </div>
-                        <div className="flex flex-col items-center space-y-4 p-6 rounded-lg bg-blue-50 dark:bg-blue-950/20">
-                            <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-full text-blue-600 dark:text-blue-400">
-                                <Droplets className="h-8 w-8" />
-                            </div>
-                            <h3 className="text-xl font-bold">Pure & Natural</h3>
-                            <p className="text-muted-foreground">Raw, unprocessed milk and ghee. No preservatives, no additives, just nature's best.</p>
-                        </div>
-                        <div className="flex flex-col items-center space-y-4 p-6 rounded-lg bg-amber-50 dark:bg-amber-950/20">
-                            <div className="p-4 bg-amber-100 dark:bg-amber-900 rounded-full text-amber-600 dark:text-amber-400">
-                                <ShieldCheck className="h-8 w-8" />
-                            </div>
-                            <h3 className="text-xl font-bold">Totally Hygienic</h3>
-                            <p className="text-muted-foreground">State-of-the-art automated milking and packaging processes ensuring highest safety standards.</p>
+        <div className="flex flex-col">
+            {/* Hero */}
+            <section className="relative isolate flex min-h-[70vh] items-end overflow-hidden">
+                <Image src="/farm3.webp" alt="Harvesting at TGF" fill priority sizes="100vw" className="-z-20 object-cover" />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/45 to-black/20" />
+                <div className="container py-16 text-white md:py-20">
+                    <div className="max-w-2xl space-y-5">
+                        <p className="eyebrow text-[#e6c27a]">TGF Farms · Firozpur, Punjab</p>
+                        <h1 className="text-5xl font-semibold leading-[1.05] sm:text-6xl">Purity from soil to soul</h1>
+                        <p className="text-lg text-white/85 md:text-xl">
+                            The real taste of Punjab: organic, preservative-free and grown with care on our own land.
+                        </p>
+                        <div className="flex flex-wrap gap-3 pt-2">
+                            <Button asChild size="lg" variant="gold">
+                                <Link href="/farming/harvest">See our harvest <ArrowRight className="h-4 w-4" /></Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white hover:text-black">
+                                <a href="#order">How to order</a>
+                            </Button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Feature Sections */}
-            <section className="w-full py-12 md:py-24 bg-muted/20">
-                <div className="container px-4 md:px-6 space-y-24">
-                    {/* Dairy Feature */}
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
-                            <Image
-                                src="/dairy.JPG"
-                                alt="TGF Dairy Farm"
-                                fill
-                                className="object-cover"
-                            />
+            {/* Promises */}
+            <section className="py-12 md:py-16">
+                <div className="container">
+                    <ul className="grid gap-5 md:grid-cols-3">
+                        {promises.map((p) => (
+                            <li key={p.title} className="flex gap-4 rounded-2xl border bg-card p-6 shadow-sm">
+                                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                                    <p.icon className="h-6 w-6" />
+                                </span>
+                                <div>
+                                    <h2 className="text-xl font-semibold">{p.title}</h2>
+                                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{p.text}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
+            {/* Dairy and grains */}
+            <section className="pb-16 md:pb-24">
+                <div className="container space-y-20 md:space-y-28">
+                    <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+                        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
+                            <Image src="/dairy.webp" alt="Buffaloes at the TGF dairy" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                         </div>
-                        <div className="space-y-6">
-                            <div className="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm font-medium">
-                                <Milk className="h-4 w-4" /> <span>Dairy Excellence</span>
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Pure Buffalo Milk & Desi Ghee</h2>
-                            <p className="text-lg text-muted-foreground leading-relaxed">
-                                Our livestock thrives in a stress-free environment, fed on organic fodder grown right on our farm.
-                                This results in milk that is rich, creamy, and packed with nutrition. We take pride in producing traditional Desi Ghee via the Bilona method, preserving the aroma and health benefits.
+                        <div className="space-y-5">
+                            <p className="eyebrow"><Milk className="h-4 w-4" /> Dairy</p>
+                            <h2 className="text-3xl font-semibold sm:text-4xl">Pure buffalo milk &amp; desi ghee</h2>
+                            <p className="text-lg leading-relaxed text-muted-foreground">
+                                Our animals live a calm, stress-free life and eat organic fodder grown right here on the farm. The
+                                result is milk that&apos;s rich, creamy and full of nutrition. We make our desi ghee the
+                                traditional way, with the Bilona method, to keep its aroma and goodness.
                             </p>
-                            <ul className="space-y-2">
-                                <li className="flex items-center gap-2 font-medium"><CheckCircle className="h-5 w-5 text-green-500" /> High Fat Content (A2 Properties)</li>
-                                <li className="flex items-center gap-2 font-medium"><CheckCircle className="h-5 w-5 text-green-500" /> Antibiotic & Hormone Free</li>
-                                <li className="flex items-center gap-2 font-medium"><CheckCircle className="h-5 w-5 text-green-500" /> Untouched by Human Hands</li>
+                            <ul className="space-y-3">
+                                {["High fat content (A2 properties)", "Antibiotic and hormone free", "Untouched by human hands"].map((item) => (
+                                    <li key={item} className="flex items-center gap-3 font-medium">
+                                        <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" /> {item}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </div>
 
-                    {/* Crops Feature */}
-                    <div className="grid md:grid-cols-2 gap-12 items-center md:flex-row-reverse">
-                        <div className="space-y-6 md:order-1">
-                            <div className="inline-flex items-center space-x-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-3 py-1 rounded-full text-sm font-medium">
-                                <Wheat className="h-4 w-4" /> <span>Golden Harvest</span>
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Premium Basmati & Wheat</h2>
-                            <p className="text-lg text-muted-foreground leading-relaxed">
-                                Located in the heart of Punjab's fertile plains, TGF produces some of the world's finest Basmati rice.
-                                Our staple crops are nurtured with care, ensuring every grain embodies the richness of the land.
-                            </p>
-                            <div className="grid grid-cols-2 gap-4 pt-4">
-                                <div className="p-4 bg-background rounded-lg border shadow-sm">
-                                    <h4 className="font-bold text-lg mb-1">Basmati Rice</h4>
-                                    <p className="text-sm text-muted-foreground">Long-grain, aromatic, aged to perfection.</p>
-                                </div>
-                                <div className="p-4 bg-background rounded-lg border shadow-sm">
-                                    <h4 className="font-bold text-lg mb-1">Organic Wheat</h4>
-                                    <p className="text-sm text-muted-foreground">Whole grain, chemically free flour source.</p>
-                                </div>
-                            </div>
+                    <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+                        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl md:order-2">
+                            <Image src="/farm2.webp" alt="Wheat fields at TGF" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                         </div>
-                        <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-500 md:order-2">
-                            <Image
-                                src="/farm2.png"
-                                alt="Wheat Fields"
-                                fill
-                                className="object-cover"
-                            />
+                        <div className="space-y-5 md:order-1">
+                            <p className="eyebrow"><Wheat className="h-4 w-4" /> Grains</p>
+                            <h2 className="text-3xl font-semibold sm:text-4xl">Basmati rice &amp; wheat</h2>
+                            <p className="text-lg leading-relaxed text-muted-foreground">
+                                In the heart of Punjab&apos;s fertile plains, TGF grows some of the finest Basmati rice you&apos;ll
+                                taste. Our staple crops are looked after season by season, so every grain carries the richness of
+                                the land.
+                            </p>
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="rounded-2xl border bg-card p-5 shadow-sm">
+                                    <h3 className="text-lg font-semibold">Basmati rice</h3>
+                                    <p className="mt-1 text-sm text-muted-foreground">Long-grain, aromatic, aged to perfection.</p>
+                                </div>
+                                <div className="rounded-2xl border bg-card p-5 shadow-sm">
+                                    <h3 className="text-lg font-semibold">Organic wheat</h3>
+                                    <p className="mt-1 text-sm text-muted-foreground">Whole grain, chemical-free flour.</p>
+                                </div>
+                            </div>
+                            <Button asChild variant="link" className="px-0">
+                                <Link href="/farming/harvest">More about our harvest <ArrowRight className="h-4 w-4" /></Link>
+                            </Button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Gallery Section */}
-            <section className="w-full py-12 md:py-24 justify-center bg-zinc-900 text-white">
-                <div className="container px-4 md:px-6">
-                    <div className="flex flex-col items-center text-center mb-12">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">Gallery: Life on the Farm</h2>
-                        <p className="text-zinc-400 max-w-2xl">A glimpse into our daily operations, our animals, and the lush green fields of TGF.</p>
+            {/* Gallery */}
+            <section className="bg-[#0f1714] py-16 text-[#e7e3d8] md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading
+                        eyebrow="Gallery"
+                        title={<span className="text-white">Life on the farm</span>}
+                        description={<span className="text-white/60">Our animals, our fields and our everyday work at TGF.</span>}
+                        align="center"
+                    />
+                    <div className="grid auto-rows-[220px] gap-4 sm:grid-cols-2 sm:auto-rows-[260px] md:grid-cols-3">
+                        {gallery.map((photo) => (
+                            <figure key={photo.src} className={`group relative overflow-hidden rounded-2xl ${photo.className ?? ""}`}>
+                                <Image
+                                    src={photo.src}
+                                    alt={photo.alt}
+                                    fill
+                                    sizes="(min-width: 768px) 33vw, 100vw"
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                {photo.caption && (
+                                    <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5 font-serif text-lg font-semibold text-white">
+                                        {photo.caption}
+                                    </figcaption>
+                                )}
+                            </figure>
+                        ))}
                     </div>
+                </div>
+            </section>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[300px]">
-                        {/* Large Item */}
-                        <div className="relative group overflow-hidden rounded-xl md:col-span-2 md:row-span-2">
-                            <Image
-                                src="/dairy2.png"
-                                alt="Dairy Herd"
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                <span className="text-xl font-bold">Our Pride: The Herd</span>
-                            </div>
+            {/* Order */}
+            <section id="order" className="py-16 md:py-24">
+                <div className="container">
+                    <div className="grid items-center gap-8 rounded-3xl border bg-secondary/50 p-8 sm:p-12 md:grid-cols-[1.3fr_1fr]">
+                        <div className="space-y-3">
+                            <p className="eyebrow">Order from the farm</p>
+                            <h2 className="text-3xl font-semibold sm:text-4xl">Want fresh milk, ghee or grain?</h2>
+                            <p className="text-muted-foreground">
+                                Send us a message with what you need and where you are. We&apos;ll tell you what&apos;s available
+                                this season and how to get it to you.
+                            </p>
                         </div>
-
-                        {/* Regular Items */}
-                        <div className="relative group overflow-hidden rounded-xl">
-                            <Image
-                                src="/dairy1.png"
-                                alt="Calf"
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                        </div>
-                        <div className="relative group overflow-hidden rounded-xl">
-                            <Image
-                                src="/farm1.JPG"
-                                alt="Farm House"
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                        </div>
-
-                        {/* Wide Item */}
-                        <div className="relative group overflow-hidden rounded-xl md:col-span-2">
-                            <Image
-                                src="/farm3.png"
-                                alt="Harvest"
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                <span className="text-xl font-bold">Harvest Season</span>
-                            </div>
-                        </div>
-
-                        <div className="relative group overflow-hidden rounded-xl">
-                            <Image
-                                src="/farm.JPG"
-                                alt="Night View"
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
+                        <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+                            <Button asChild size="lg">
+                                <Link href="/contact"><MessageCircle className="h-5 w-5" /> Send a message</Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline">
+                                <Link href={tgfSocials.instagram} target="_blank" rel="noopener noreferrer">
+                                    <Instagram className="h-5 w-5" /> Message us on Instagram
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -200,4 +183,3 @@ export default function FarmingPage() {
         </div>
     )
 }
-

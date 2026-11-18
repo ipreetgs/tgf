@@ -1,162 +1,179 @@
 "use client"
 
+import { useState } from "react"
+import Link from "next/link"
+import { Briefcase, Github, Globe, Instagram, Linkedin, Mail, Send, Share2, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Briefcase, Github, Globe, Instagram, Linkedin, Mail, Send, Share2 } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
+import { cn } from "@/lib/utils"
 import { founderLinks, sipAndShelfLinks, tgfSocials } from "@/lib/links"
 
+const EMAIL = "ipreetgs@icloud.com"
+
+const topics = ["Farm order", "Sip & Shelf", "DevOps work", "Books", "Just saying hi"]
+
+const socialGroups = [
+    {
+        title: "TGF",
+        links: [
+            { name: "Instagram", handle: "@the_gfarm", icon: Instagram, url: tgfSocials.instagram },
+            { name: "LinkedIn", handle: "thegfarm", icon: Linkedin, url: tgfSocials.linkedin },
+        ],
+    },
+    {
+        title: "Sip & Shelf",
+        links: [
+            { name: "Instagram", handle: "@sipandshelf", icon: Instagram, url: sipAndShelfLinks.instagram },
+            { name: "LinkedIn", handle: "sipandshelf", icon: Linkedin, url: sipAndShelfLinks.linkedin },
+        ],
+    },
+    {
+        title: "Gurpreet",
+        links: [
+            { name: "LinkedIn", handle: "ipreetgs", icon: Linkedin, url: founderLinks.linkedin },
+            { name: "Portfolio", handle: "ipreetgs.github.io", icon: Globe, url: founderLinks.portfolio },
+            { name: "GitHub", handle: "ipreetgs", icon: Github, url: founderLinks.github },
+            { name: "Instagram", handle: "@ipreetgs", icon: Instagram, url: "https://www.instagram.com/ipreetgs" },
+            { name: "Instagram (personal)", handle: "@__gurpreet__23", icon: Instagram, url: "https://instagram.com/__gurpreet__23" },
+            { name: "Facebook", handle: "ipreetgs", icon: Share2, url: "https://www.facebook.com/ipreetgs/" },
+            { name: "Wishlink", handle: "ipreetgs", icon: Briefcase, url: "http://wishlink.com/ipreetgs" },
+            { name: "Igli", handle: "ipreetgs", icon: Share2, url: "http://igli.me/ipreetgs" },
+        ],
+    },
+]
+
 export default function ContactPage() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-    })
+    const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" })
+    const [topic, setTopic] = useState<string | null>(null)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const { name, email, subject, message } = formData
-
-        // Construct mailto link
-        const mailtoLink = `mailto:ipreetgs@icloud.com?subject=${encodeURIComponent(subject || "Contact from TGF Website")}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`
-
-        window.location.href = mailtoLink
+        const fullSubject = [topic, subject].filter(Boolean).join(": ") || "Contact from TGF website"
+        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+        window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(body)}`
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
+        setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const socialLinks = [
-        { name: "TGF on Instagram", icon: Instagram, url: tgfSocials.instagram, color: "text-pink-600" },
-        { name: "TGF on LinkedIn", icon: Linkedin, url: tgfSocials.linkedin, color: "text-blue-700" },
-        { name: "Sip & Shelf on Instagram", icon: Instagram, url: sipAndShelfLinks.instagram, color: "text-amber-600" },
-        { name: "Sip & Shelf on LinkedIn", icon: Linkedin, url: sipAndShelfLinks.linkedin, color: "text-amber-700" },
-        { name: "LinkedIn", icon: Linkedin, url: founderLinks.linkedin, color: "text-blue-600" },
-        { name: "Portfolio", icon: Globe, url: founderLinks.portfolio, color: "text-green-600" },
-        { name: "GitHub", icon: Github, url: founderLinks.github, color: "text-gray-900 dark:text-gray-100" },
-        { name: "Instagram (Personal)", icon: Instagram, url: "https://instagram.com/__gurpreet__23", color: "text-pink-600" },
-        { name: "Instagram (Public)", icon: Instagram, url: "https://www.instagram.com/ipreetgs", color: "text-purple-600" },
-        { name: "Facebook", icon: Share2, url: "https://www.facebook.com/ipreetgs/", color: "text-blue-800" },
-        { name: "Wishlink", icon: Briefcase, url: "http://wishlink.com/ipreetgs", color: "text-orange-500" },
-        { name: "Igli", icon: Share2, url: "http://igli.me/ipreetgs", color: "text-green-600" },
-    ]
-
     return (
-        <div className="flex flex-col min-h-screen bg-stone-50 dark:bg-stone-950">
+        <div className="flex flex-col">
             {/* Header */}
-            <section className="py-20 bg-stone-900 text-white text-center">
-                <div className="container px-4">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Let&apos;s Connect</h1>
-                    <p className="text-xl text-stone-300 max-w-2xl mx-auto">
-                        Want to order from the farm, ask about Sip &amp; Shelf, talk tech, or just say hi? Drop a message and I&apos;ll get back to you.
+            <section className="bg-grain border-b">
+                <div className="container max-w-3xl py-16 text-center md:py-20">
+                    <p className="eyebrow">Contact</p>
+                    <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Let&apos;s connect</h1>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Want to order from the farm, ask about Sip &amp; Shelf, talk tech, or just say hi? Drop a message and
+                        I&apos;ll get back to you.
                     </p>
                 </div>
             </section>
 
-            <div className="container px-4 py-12 md:py-24">
-                <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <section className="py-12 md:py-20">
+                <div className="container grid max-w-6xl gap-10 lg:grid-cols-[1.2fr_1fr]">
+                    {/* Form */}
+                    <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
+                        <h2 className="text-2xl font-semibold">Send a message</h2>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                            This opens your email app with your message ready to send.
+                        </p>
 
-                    {/* Contact Form */}
-                    <Card className="h-fit shadow-xl border-stone-200 dark:border-stone-800">
-                        <CardHeader>
-                            <CardTitle className="text-2xl">Send a Message</CardTitle>
-                            <CardDescription>
-                                This form will open your default email client to send a message directly to us.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                            <fieldset className="space-y-2">
+                                <legend className="text-sm font-medium">What&apos;s it about?</legend>
+                                <div className="flex flex-wrap gap-2 pt-1">
+                                    {topics.map((t) => (
+                                        <button
+                                            key={t}
+                                            type="button"
+                                            aria-pressed={topic === t}
+                                            onClick={() => setTopic(topic === t ? null : t)}
+                                            className={cn(
+                                                "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
+                                                topic === t
+                                                    ? "border-primary bg-primary text-primary-foreground"
+                                                    : "bg-background text-muted-foreground hover:border-primary hover:text-foreground"
+                                            )}
+                                        >
+                                            {t}
+                                        </button>
+                                    ))}
+                                </div>
+                            </fieldset>
+
+                            <div className="grid gap-5 sm:grid-cols-2">
                                 <div className="space-y-2">
                                     <label htmlFor="name" className="text-sm font-medium">Name</label>
-                                    <Input
-                                        id="name"
-                                        name="name"
-                                        placeholder="Your Name"
-                                        required
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                    />
+                                    <Input id="name" name="name" autoComplete="name" placeholder="Your name" required value={formData.name} onChange={handleChange} className="h-11 rounded-xl" />
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="email" className="text-sm font-medium">Email</label>
-                                    <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        placeholder="your@email.com"
-                                        required
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                    />
+                                    <Input id="email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required value={formData.email} onChange={handleChange} className="h-11 rounded-xl" />
                                 </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="subject" className="text-sm font-medium">Subject</label>
-                                    <Input
-                                        id="subject"
-                                        name="subject"
-                                        placeholder="Inquiry about..."
-                                        value={formData.subject}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="message" className="text-sm font-medium">Message</label>
-                                    <Textarea
-                                        id="message"
-                                        name="message"
-                                        placeholder="Write your message here..."
-                                        className="min-h-[150px]"
-                                        required
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <Button type="submit" className="w-full bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900">
-                                    <Send className="mr-2 h-4 w-4" /> Send Email
-                                </Button>
-                            </form>
-                        </CardContent>
-                    </Card>
-
-                    {/* Social Links */}
-                    <div className="space-y-8">
-                        <div>
-                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                                <Share2 className="text-amber-600" /> Social & Professional
-                            </h2>
-                            <div className="grid gap-4">
-                                {socialLinks.map((link) => (
-                                    <Link key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="block group">
-                                        <div className="flex items-center p-4 bg-white dark:bg-stone-900 rounded-lg shadow-sm border border-stone-200 dark:border-stone-800 hover:shadow-md hover:border-amber-500 transition-all">
-                                            <div className={`p-3 rounded-full bg-stone-100 dark:bg-stone-800 mr-4 group-hover:bg-amber-100 dark:group-hover:bg-amber-900/30 transition-colors`}>
-                                                <link.icon className={`h-6 w-6 ${link.color}`} />
-                                            </div>
-                                            <span className="font-medium text-lg pr-4">{link.name}</span>
-                                        </div>
-                                    </Link>
-                                ))}
                             </div>
-                        </div>
-
-                        <div className="p-6 bg-amber-50 dark:bg-amber-950/20 rounded-xl border border-amber-100 dark:border-amber-900/30">
-                            <h3 className="font-bold text-lg mb-2 text-amber-800 dark:text-amber-200">Direct Contact</h3>
-                            <div className="flex items-center gap-3 text-stone-700 dark:text-stone-300">
-                                <Mail className="h-5 w-5" />
-                                <a href="mailto:ipreetgs@icloud.com" className="hover:underline hover:text-amber-600">
-                                    Send an Email
-                                </a>
+                            <div className="space-y-2">
+                                <label htmlFor="subject" className="text-sm font-medium">
+                                    Subject <span className="font-normal text-muted-foreground">(optional)</span>
+                                </label>
+                                <Input id="subject" name="subject" placeholder="e.g. 5 litres of milk a week" value={formData.subject} onChange={handleChange} className="h-11 rounded-xl" />
                             </div>
-                        </div>
+                            <div className="space-y-2">
+                                <label htmlFor="message" className="text-sm font-medium">Message</label>
+                                <Textarea id="message" name="message" placeholder="Write your message here…" className="min-h-[150px] rounded-xl" required value={formData.message} onChange={handleChange} />
+                            </div>
+                            <Button type="submit" size="lg" className="w-full">
+                                <Send className="h-4 w-4" /> Send email
+                            </Button>
+                            <p className="text-center text-xs text-muted-foreground">
+                                Prefer your own email app? Write to{" "}
+                                <a href={`mailto:${EMAIL}`} className="font-medium text-primary hover:underline">{EMAIL}</a>
+                            </p>
+                        </form>
                     </div>
 
+                    {/* Socials */}
+                    <aside className="space-y-8">
+                        {socialGroups.map((group) => (
+                            <div key={group.title} className="space-y-3">
+                                <h2 className="text-lg font-semibold">{group.title}</h2>
+                                <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                                    {group.links.map((link) => (
+                                        <li key={link.url}>
+                                            <Link
+                                                href={link.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group flex items-center gap-3 rounded-xl border bg-card px-4 py-3 transition-all hover:border-primary hover:shadow-sm"
+                                            >
+                                                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-primary">
+                                                    <link.icon className="h-4 w-4" />
+                                                </span>
+                                                <span className="min-w-0 flex-1">
+                                                    <span className="block text-sm font-medium">{link.name}</span>
+                                                    <span className="block truncate text-xs text-muted-foreground">{link.handle}</span>
+                                                </span>
+                                                <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+
+                        <a
+                            href={`mailto:${EMAIL}`}
+                            className="flex items-center gap-3 rounded-2xl border border-gold/30 bg-gold/10 p-5 text-sm font-medium transition-colors hover:bg-gold/15"
+                        >
+                            <Mail className="h-5 w-5 text-gold" /> Email directly: {EMAIL}
+                        </a>
+                    </aside>
                 </div>
-            </div>
+            </section>
         </div>
     )
 }
