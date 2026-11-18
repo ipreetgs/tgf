@@ -1,332 +1,326 @@
+import type { Metadata } from "next"
+import Link from "next/link"
+import {
+    Server, Code, Cloud, Shield, Linkedin, Globe, Github, Instagram, ArrowUpRight,
+    BookOpen, Coffee, Search, Handshake, Package, Gauge, Briefcase, CheckCircle2,
+} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-    Terminal, Server, Code, Cloud, Shield, Linkedin, Globe, Github, Instagram,
-    ExternalLink, BookOpen, Coffee, Search, Handshake, Package, Gauge, GitBranch, Rocket,
-} from "lucide-react"
-import Link from "next/link"
-import type { Metadata } from "next"
+import { SectionHeading } from "@/components/section-heading"
 import { aegisLinks, founderLinks, sipAndShelfLinks } from "@/lib/links"
+import { clientProjects, experience } from "@/lib/portfolio"
 
 export const metadata: Metadata = {
-    title: "IT-DevOps | TGF Group",
+    title: "IT-DevOps",
     description: "Gurpreet Singh's IT and DevOps work, plus the products he builds: Sip & Shelf and Aegis.",
 }
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const
 
+const sections = [
+    { label: "Projects", href: "#projects" },
+    { label: "Experience", href: "#experience" },
+    { label: "Client work", href: "#client-work" },
+    { label: "Toolbox", href: "#toolbox" },
+]
+
+const toolbox = [
+    { title: "Cloud & Containers", icon: Cloud, skills: ["AWS", "Azure", "GCP", "Kubernetes", "Docker"] },
+    { title: "Automation & IaC", icon: Code, skills: ["Terraform", "Ansible", "Python", "Bash", "Chef"] },
+    { title: "Security", icon: Shield, skills: ["VAPT", "Zero Trust", "NetSec", "DevSecOps"] },
+    { title: "CI/CD & Observability", icon: Server, skills: ["Jenkins", "Harness", "Git", "Nexus", "Prometheus"] },
+]
+
 export default function DevOpsPage() {
+    const currentRole = experience.find((job) => job.current)
+
     return (
-        <div className="flex flex-col min-h-screen font-mono bg-slate-950 text-slate-300">
-            {/* Hero Section */}
-            <section className="relative w-full py-24 lg:py-32 xl:py-40 overflow-hidden">
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-                {/* Animated Background Glow */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-green-500/20 blur-[120px] rounded-full opacity-50 pointer-events-none" />
-
-                <div className="container relative px-4 md:px-6 z-10">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div className="flex flex-col space-y-6">
-                            <div className="inline-flex items-center space-x-2 border border-green-500/30 rounded-full px-3 py-1 bg-green-950/30 w-fit">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                                </span>
-                                <span className="text-xs font-medium text-green-400">IT-DevOps</span>
-                            </div>
-                            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-white">
-                                Hi, I&apos;m Gurpreet.
-                            </h1>
-                            <p className="max-w-[600px] text-slate-400 md:text-xl leading-relaxed">
-                                I&apos;m a DevOps engineer. My job is the work you only notice when it breaks: pipelines, cloud
-                                infrastructure, monitoring and security, so releases go out smoothly and nobody gets paged at 3 a.m.
-                            </p>
-                            <p className="max-w-[600px] text-slate-400 md:text-lg leading-relaxed">
-                                Outside the day job I build my own products. Two of them are below.
-                            </p>
-
-                            <div className="flex flex-col gap-3 min-[400px]:flex-row pt-4">
+        <div className="flex flex-col">
+            {/* Hero */}
+            <section className="bg-grain relative overflow-hidden border-b">
+                <div className="container grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.1fr_1fr]">
+                    <div className="space-y-6">
+                        <p className="eyebrow">
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                            </span>
+                            IT-DevOps
+                        </p>
+                        <h1 className="text-5xl font-semibold leading-[1.05] sm:text-6xl">Hi, I&apos;m Gurpreet.</h1>
+                        <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+                            I&apos;m a {currentRole?.role ?? "DevOps engineer"}. My job is the work you only notice when it
+                            breaks: pipelines, cloud infrastructure, monitoring and security, so releases go out smoothly and
+                            nobody gets paged at 3 a.m. Outside the day job, I build my own products.
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                            <Button asChild size="lg">
                                 <Link href={founderLinks.linkedin} {...external}>
-                                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white gap-2">
-                                        <Linkedin className="h-4 w-4" /> LinkedIn
-                                    </Button>
+                                    <Linkedin className="h-4 w-4" /> LinkedIn
                                 </Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline">
                                 <Link href={founderLinks.portfolio} {...external}>
-                                    <Button variant="outline" className="w-full bg-transparent border-green-600 text-green-400 hover:bg-green-900/50 hover:text-green-300 gap-2">
-                                        <Globe className="h-4 w-4" /> Portfolio
-                                    </Button>
+                                    <Globe className="h-4 w-4" /> Portfolio
                                 </Link>
+                            </Button>
+                            <Button asChild size="lg" variant="ghost">
                                 <Link href={founderLinks.github} {...external}>
-                                    <Button variant="outline" className="w-full bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white gap-2">
-                                        <Github className="h-4 w-4" /> GitHub
-                                    </Button>
+                                    <Github className="h-4 w-4" /> GitHub
                                 </Link>
-                            </div>
+                            </Button>
                         </div>
+                        <dl className="grid max-w-lg grid-cols-3 gap-4 border-t pt-6">
+                            {[
+                                { label: "Role", value: "Senior DevOps" },
+                                { label: "Experience", value: "4.5+ years" },
+                                { label: "Building", value: "2 products" },
+                            ].map((fact) => (
+                                <div key={fact.label}>
+                                    <dt className="text-xs uppercase tracking-wider text-muted-foreground">{fact.label}</dt>
+                                    <dd className="mt-1 font-serif text-lg font-semibold">{fact.value}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </div>
 
-                        {/* Terminal Visual */}
-                        <div className="relative rounded-xl border border-slate-800 bg-slate-900/90 shadow-2xl backdrop-blur-sm overflow-hidden">
-                            <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-800 bg-slate-900">
-                                <div className="flex gap-1.5">
-                                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                                </div>
-                                <div className="ml-4 text-xs text-slate-500 font-sans">bash — 80x24</div>
-                            </div>
-                            <div className="p-6 space-y-2 font-mono text-sm overflow-x-auto">
-                                <div className="flex">
-                                    <span className="text-green-500 mr-2">➜</span>
-                                    <span className="text-blue-400 mr-2">~</span>
-                                    <span className="text-slate-300">whoami</span>
-                                </div>
-                                <div className="text-green-400 ml-4">Gurpreet Singh, DevOps Engineer and Founder</div>
-
-                                <div className="flex pt-2">
-                                    <span className="text-green-500 mr-2">➜</span>
-                                    <span className="text-blue-400 mr-2">~</span>
-                                    <span className="text-slate-300">cat skills.json | jq .core</span>
-                                </div>
-                                <div className="ml-4 text-orange-300">
-                                    {`[`}<br />
-                                    &nbsp;&nbsp;&quot;AWS&quot;, &quot;Azure&quot;, &quot;Kubernetes&quot;,<br />
-                                    &nbsp;&nbsp;&quot;Terraform&quot;, &quot;Ansible&quot;,<br />
-                                    &nbsp;&nbsp;&quot;Python&quot;, &quot;CI/CD&quot;<br />
-                                    {`]`}
-                                </div>
-
-                                <div className="flex pt-2">
-                                    <span className="text-green-500 mr-2">➜</span>
-                                    <span className="text-blue-400 mr-2">~</span>
-                                    <span className="text-slate-300">ls ~/building</span>
-                                </div>
-                                <div className="ml-4">
-                                    <span className="text-amber-300 mr-6">sip-and-shelf/</span>
-                                    <span className="text-emerald-300">aegis/</span>
-                                </div>
-
-                                <div className="flex pt-2">
-                                    <span className="text-green-500 mr-2">➜</span>
-                                    <span className="text-blue-400 mr-2">~</span>
-                                    <span className="text-slate-300 animate-pulse">_</span>
-                                </div>
-                            </div>
+                    {/* Terminal */}
+                    <div className="overflow-hidden rounded-2xl border border-black/10 bg-[#0f1714] text-[#e7e3d8] shadow-2xl shadow-primary/10 dark:border-white/10">
+                        <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+                            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                            <span className="ml-3 font-mono text-xs text-white/40">gurpreet@tgf: ~</span>
+                        </div>
+                        <div className="space-y-3 overflow-x-auto p-6 font-mono text-sm leading-relaxed">
+                            <p><span className="text-[#7bd88f]">➜</span> <span className="text-[#78b7ff]">~</span> whoami</p>
+                            <p className="pl-4 text-[#7bd88f]">Gurpreet Singh · {currentRole?.role ?? "DevOps Engineer"} · Founder</p>
+                            <p><span className="text-[#7bd88f]">➜</span> <span className="text-[#78b7ff]">~</span> cat skills.json | jq .core</p>
+                            <p className="pl-4 text-[#f2c879]">[&quot;AWS&quot;, &quot;Azure&quot;, &quot;Kubernetes&quot;, &quot;Terraform&quot;, &quot;Ansible&quot;, &quot;CI/CD&quot;]</p>
+                            <p><span className="text-[#7bd88f]">➜</span> <span className="text-[#78b7ff]">~</span> ls ~/building</p>
+                            <p className="pl-4"><span className="mr-6 text-[#f2c879]">sip-and-shelf/</span><span className="text-[#7bd88f]">aegis/</span></p>
+                            <p><span className="text-[#7bd88f]">➜</span> <span className="text-[#78b7ff]">~</span> <span className="animate-pulse">▋</span></p>
                         </div>
                     </div>
                 </div>
+
+                {/* On-page navigation */}
+                <nav aria-label="On this page" className="container pb-8">
+                    <ul className="flex flex-wrap gap-2">
+                        {sections.map((s) => (
+                            <li key={s.href}>
+                                <a href={s.href} className="inline-flex rounded-full border bg-background/70 px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-primary">
+                                    {s.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </section>
 
-            {/* My Projects */}
-            <section id="projects" className="w-full py-12 md:py-24 border-t border-slate-800">
-                <div className="container px-4 md:px-6">
-                    <div className="flex flex-col space-y-4 mb-12">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-white">What I&apos;m Building</h2>
-                        <p className="text-slate-400 max-w-[700px]">
-                            One app for readers and one tool for engineers. Both started with a problem I kept running into myself.
-                        </p>
-                    </div>
+            {/* Products */}
+            <section id="projects" className="py-16 md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading
+                        eyebrow="What I'm building"
+                        title="Two products, two problems I kept running into"
+                        description="One app for readers and one tool for engineers."
+                    />
 
-                    <div className="grid lg:grid-cols-2 gap-8">
+                    <div className="grid gap-6 lg:grid-cols-2">
                         {/* Sip & Shelf */}
-                        <Card className="bg-slate-950 border-amber-500/30 hover:border-amber-400/60 transition-colors flex flex-col">
-                            <CardHeader className="space-y-4">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                                        <Coffee className="h-7 w-7 text-amber-400" />
-                                    </div>
-                                    <Badge className="bg-amber-900/60 text-amber-200 hover:bg-amber-900/60 border-none">Founder &amp; CEO</Badge>
-                                </div>
-                                <div>
-                                    <CardTitle className="text-white text-2xl">Sip &amp; Shelf</CardTitle>
-                                    <CardDescription className="text-amber-300/90 mt-2 text-base">
-                                        A good book. A nearby cafe. A reason to step out.
-                                    </CardDescription>
-                                </div>
-                            </CardHeader>
-                            <CardContent className="flex flex-col flex-grow gap-6">
-                                <p className="text-slate-400 leading-relaxed font-sans">
-                                    Most of us have a shelf of books we&apos;ve already read and a list of books we want to read next.
-                                    Sip &amp; Shelf connects the two. You lend, rent, swap, donate or sell your old books to readers
-                                    near you. There&apos;s no shipping: the book waits at a partner cafe, and you pick it up over a coffee.
-                                    Reading a book becomes a small outing.
-                                </p>
-
-                                <div className="grid sm:grid-cols-3 gap-3 font-sans">
-                                    {[
-                                        { icon: Search, title: "Find or list", text: "Search by title, author or ISBN, or list a book from your shelf." },
-                                        { icon: Handshake, title: "Pick the terms", text: "Lend, rent, exchange, donate, give away or sell." },
-                                        { icon: Coffee, title: "Meet at a cafe", text: "Collect the book at a partner cafe near you." },
-                                    ].map((step, i) => (
-                                        <div key={step.title} className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <step.icon className="h-4 w-4 text-amber-400" />
-                                                <span className="text-xs text-amber-400 font-mono">0{i + 1}</span>
-                                            </div>
-                                            <p className="text-sm font-semibold text-slate-200">{step.title}</p>
-                                            <p className="text-xs text-slate-500 mt-1 leading-relaxed">{step.text}</p>
+                        <article className="flex flex-col rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-lg sm:p-8">
+                            <div className="flex items-start justify-between gap-4">
+                                <span className="grid h-12 w-12 place-items-center rounded-xl bg-gold/15 text-gold">
+                                    <Coffee className="h-6 w-6" />
+                                </span>
+                                <Badge className="border-none bg-gold/15 text-gold hover:bg-gold/15">Founder &amp; CEO</Badge>
+                            </div>
+                            <h3 className="mt-6 text-3xl font-semibold">Sip &amp; Shelf</h3>
+                            <p className="mt-1 font-medium text-gold">A good book. A nearby cafe. A reason to step out.</p>
+                            <p className="mt-4 leading-relaxed text-muted-foreground">
+                                Most of us have a shelf of books we&apos;ve already read and a list of books we want to read next.
+                                Sip &amp; Shelf connects the two. You lend, rent, swap, donate or sell your old books to readers
+                                nearby. There&apos;s no shipping: the book waits at a partner cafe, and you pick it up over a coffee.
+                            </p>
+                            <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+                                {[
+                                    { icon: Search, title: "Find or list", text: "Search by title, author or ISBN, or list your own." },
+                                    { icon: Handshake, title: "Pick the terms", text: "Lend, rent, exchange, donate or sell." },
+                                    { icon: Coffee, title: "Meet at a cafe", text: "Collect it at a partner cafe nearby." },
+                                ].map((step, i) => (
+                                    <li key={step.title} className="rounded-xl bg-secondary/60 p-4">
+                                        <div className="flex items-center gap-2 text-gold">
+                                            <step.icon className="h-4 w-4" />
+                                            <span className="font-mono text-xs">0{i + 1}</span>
                                         </div>
-                                    ))}
-                                </div>
-
-                                <div className="flex flex-wrap gap-2">
-                                    {["Community", "Book Sharing", "Cafes", "Chandigarh Tricity"].map(tag => (
-                                        <Badge key={tag} variant="secondary" className="bg-slate-800 text-slate-300 hover:bg-slate-700">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </div>
-
-                                <div className="flex flex-wrap gap-3 mt-auto pt-2">
+                                        <p className="mt-2 text-sm font-semibold">{step.title}</p>
+                                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{step.text}</p>
+                                    </li>
+                                ))}
+                            </ol>
+                            <div className="mt-8 flex flex-wrap items-center gap-3 pt-2 lg:mt-auto">
+                                <Button asChild variant="gold">
                                     <Link href={sipAndShelfLinks.site} {...external}>
-                                        <Button className="bg-amber-600 hover:bg-amber-500 text-white gap-2">
-                                            <BookOpen className="h-4 w-4" /> Open the App <ExternalLink className="h-3 w-3" />
-                                        </Button>
+                                        <BookOpen className="h-4 w-4" /> Open the app <ArrowUpRight className="h-3.5 w-3.5" />
                                     </Link>
+                                </Button>
+                                <Button asChild variant="outline" size="icon">
                                     <Link href={sipAndShelfLinks.instagram} {...external} aria-label="Sip & Shelf on Instagram">
-                                        <Button variant="outline" size="icon" className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-pink-400">
-                                            <Instagram className="h-4 w-4" />
-                                        </Button>
+                                        <Instagram className="h-4 w-4" />
                                     </Link>
+                                </Button>
+                                <Button asChild variant="outline" size="icon">
                                     <Link href={sipAndShelfLinks.linkedin} {...external} aria-label="Sip & Shelf on LinkedIn">
-                                        <Button variant="outline" size="icon" className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-blue-400">
-                                            <Linkedin className="h-4 w-4" />
-                                        </Button>
+                                        <Linkedin className="h-4 w-4" />
                                     </Link>
-                                </div>
-                            </CardContent>
-                        </Card>
+                                </Button>
+                            </div>
+                        </article>
 
                         {/* Aegis */}
-                        <Card className="bg-slate-950 border-emerald-500/30 hover:border-emerald-400/60 transition-colors flex flex-col">
-                            <CardHeader className="space-y-4">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                                        <Shield className="h-7 w-7 text-emerald-400" />
-                                    </div>
-                                    <Badge className="bg-emerald-900/60 text-emerald-200 hover:bg-emerald-900/60 border-none">Open Source</Badge>
-                                </div>
-                                <div>
-                                    <CardTitle className="text-white text-2xl">Aegis</CardTitle>
-                                    <CardDescription className="text-emerald-300/90 mt-2 text-base">
-                                        An open-source security framework for IT and DevOps teams.
-                                    </CardDescription>
-                                </div>
-                            </CardHeader>
-                            <CardContent className="flex flex-col flex-grow gap-6">
-                                <p className="text-slate-400 leading-relaxed font-sans">
-                                    Every team wants to know &quot;are we exposed?&quot; before shipping, but most scanners are paid black
-                                    boxes. Aegis builds its own vulnerability index from public feeds (NVD, OSV, Exploit-DB, KEV and
-                                    EPSS) and checks your code, container images and endpoints against it, with no commercial scanning
-                                    API involved. It&apos;s built for defenders: scan what you own, see what matters first, fix it.
-                                </p>
-
-                                <ul className="grid sm:grid-cols-2 gap-3 font-sans">
-                                    {[
-                                        { icon: Code, title: "Code scans", text: "Leaked secrets, risky patterns and vulnerable dependencies." },
-                                        { icon: Package, title: "Container images", text: "OS and language packages matched to known CVEs." },
-                                        { icon: Globe, title: "Endpoint hygiene", text: "Passive checks for headers and exposed files. No attack payloads." },
-                                        { icon: Gauge, title: "Clear priorities", text: "CVSS v3.1 scores plus KEV and EPSS signals, in one report." },
-                                    ].map(item => (
-                                        <li key={item.title} className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <item.icon className="h-4 w-4 text-emerald-400" />
-                                                <p className="text-sm font-semibold text-slate-200">{item.title}</p>
-                                            </div>
-                                            <p className="text-xs text-slate-500 leading-relaxed">{item.text}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div className="rounded-lg border border-slate-800 bg-slate-900 px-4 py-3 text-sm overflow-x-auto">
-                                    <span className="text-green-500 mr-2">$</span>
-                                    <span className="text-slate-300">aegis init &amp;&amp; aegis --code ./my-app</span>
-                                </div>
-
-                                <div className="flex flex-wrap gap-2">
-                                    {["Python", "DevSecOps", "CVE Intelligence", "CI/CD"].map(tag => (
-                                        <Badge key={tag} variant="secondary" className="bg-slate-800 text-slate-300 hover:bg-slate-700">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </div>
-
-                                <div className="flex flex-wrap gap-3 mt-auto pt-2">
+                        <article className="flex flex-col rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-lg sm:p-8">
+                            <div className="flex items-start justify-between gap-4">
+                                <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary">
+                                    <Shield className="h-6 w-6" />
+                                </span>
+                                <Badge className="border-none bg-primary/10 text-primary hover:bg-primary/10">Open Source</Badge>
+                            </div>
+                            <h3 className="mt-6 text-3xl font-semibold">Aegis</h3>
+                            <p className="mt-1 font-medium text-primary">An open-source security framework for IT and DevOps teams.</p>
+                            <p className="mt-4 leading-relaxed text-muted-foreground">
+                                Every team wants to know &quot;are we exposed?&quot; before shipping, but most scanners are paid black
+                                boxes. Aegis builds its own vulnerability index from public feeds (NVD, OSV, Exploit-DB, KEV and
+                                EPSS) and checks your code, containers and endpoints against it. Scan what you own, see what
+                                matters first, fix it.
+                            </p>
+                            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                                {[
+                                    { icon: Code, title: "Code scans", text: "Secrets, risky patterns and vulnerable dependencies." },
+                                    { icon: Package, title: "Container images", text: "OS and language packages matched to known CVEs." },
+                                    { icon: Globe, title: "Endpoint hygiene", text: "Passive checks for headers and exposed files." },
+                                    { icon: Gauge, title: "Clear priorities", text: "CVSS v3.1 plus KEV and EPSS signals in one report." },
+                                ].map((item) => (
+                                    <li key={item.title} className="rounded-xl bg-secondary/60 p-4">
+                                        <div className="flex items-center gap-2">
+                                            <item.icon className="h-4 w-4 text-primary" />
+                                            <p className="text-sm font-semibold">{item.title}</p>
+                                        </div>
+                                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.text}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                            <code className="mt-6 block overflow-x-auto rounded-xl bg-[#0f1714] px-4 py-3 font-mono text-sm text-[#e7e3d8]">
+                                <span className="text-[#7bd88f]">$</span> aegis init &amp;&amp; aegis --code ./my-app
+                            </code>
+                            <div className="mt-8 flex flex-wrap gap-3 pt-2 lg:mt-auto">
+                                <Button asChild>
                                     <Link href={aegisLinks.repo} {...external}>
-                                        <Button className="bg-emerald-600 hover:bg-emerald-500 text-white gap-2">
-                                            <Github className="h-4 w-4" /> View on GitHub <ExternalLink className="h-3 w-3" />
-                                        </Button>
+                                        <Github className="h-4 w-4" /> View on GitHub <ArrowUpRight className="h-3.5 w-3.5" />
                                     </Link>
-                                    <Link href={`${aegisLinks.repo}#readme`} {...external}>
-                                        <Button variant="outline" className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white gap-2">
-                                            <GitBranch className="h-4 w-4" /> Read the Docs
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div>
-                </div>
-            </section>
-
-            {/* Skills */}
-            <section className="w-full py-12 md:py-24 bg-slate-900/50 border-y border-slate-800">
-                <div className="container px-4 md:px-6">
-                    <h2 className="text-2xl font-bold tracking-tighter mb-2 flex items-center gap-2 text-white">
-                        <Terminal className="h-6 w-6 text-green-500" /> My Toolbox
-                    </h2>
-                    <p className="text-slate-400 mb-8 max-w-[700px]">The tools I use every day to keep systems running.</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            { title: "Cloud Infra", icon: Cloud, color: "text-blue-500", skills: ["AWS", "Azure", "GCP", "Kubernetes", "Docker"] },
-                            { title: "Automation", icon: Code, color: "text-yellow-500", skills: ["Ansible", "Terraform", "Python", "Bash", "Chef"] },
-                            { title: "Security", icon: Shield, color: "text-red-500", skills: ["VAPT", "Zero Trust", "NetSec", "CyberSecurity"] },
-                            { title: "DevOps Tools", icon: Server, color: "text-purple-500", skills: ["Jenkins", "Harness", "Git", "Nexus", "Prometheus"] },
-                        ].map((category) => (
-                            <Card key={category.title} className="bg-slate-950 border-slate-800 hover:border-green-500/50 transition-colors group">
-                                <CardHeader className="pb-2">
-                                    <category.icon className={`h-8 w-8 ${category.color} mb-2 group-hover:scale-110 transition-transform`} />
-                                    <CardTitle className="text-slate-200">{category.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex flex-wrap gap-2">
-                                    {category.skills.map(skill => (
-                                        <Badge key={skill} variant="outline" className="border-slate-700 text-slate-400 group-hover:text-green-400 group-hover:border-green-500/30">
-                                            {skill}
-                                        </Badge>
-                                    ))}
-                                </CardContent>
-                            </Card>
-                        ))}
+                                </Button>
+                                <Button asChild variant="outline">
+                                    <Link href={`${aegisLinks.repo}#readme`} {...external}>Read the docs</Link>
+                                </Button>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </section>
 
             {/* Experience */}
-            <section className="w-full py-12 md:py-24">
-                <div className="container px-4 md:px-6">
-                    <div className="flex flex-col space-y-4 mb-12">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-white">Where I&apos;ve Worked</h2>
-                        <p className="text-slate-400 max-w-[700px]">I started in network security and moved into cloud and automation.</p>
-                    </div>
+            <section id="experience" className="border-y bg-secondary/40 py-16 md:py-24">
+                <div className="container grid gap-12 lg:grid-cols-[1fr_2fr]">
+                    <SectionHeading
+                        eyebrow="Experience"
+                        title="Where I've worked"
+                        description="I started in network security, spent four years building pipelines and clouds at TestingXperts, and now work as a Senior DevOps Engineer."
+                        className="lg:sticky lg:top-28 lg:self-start"
+                    />
 
-                    <div className="relative border-l-2 border-slate-800 ml-4 md:ml-10 space-y-12">
-                        {[
-                            { year: "2022 - Present", role: "DevOps Engineer (SE)", company: "TestingXperts", desc: "Built and run multi-cloud CI/CD pipelines that cut deployment time by 40%. Moved services onto Docker and Kubernetes." },
-                            { year: "2018", role: "Network Security Trainee", company: "EH1 Infotech", desc: "Ran VAPT audits and hardened network perimeters against real-world threats." },
-                        ].map((job, i) => (
-                            <div key={job.company} className="relative pl-8 md:pl-12 group">
-                                <div className="absolute -left-[9px] top-1 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 group-hover:border-green-500 group-hover:bg-green-950 transition-colors" />
-                                <div className="flex flex-col space-y-1 p-4 rounded-lg hover:bg-slate-900/50 transition-colors border border-transparent hover:border-slate-800">
-                                    <span className="text-sm text-green-500 font-mono">{job.year}</span>
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="text-xl font-bold text-slate-200">{job.role}</h3>
-                                        {i === 0 && <Badge className="bg-green-900 text-green-300 hover:bg-green-800 border-none">Current</Badge>}
+                    <ol className="relative space-y-6 border-l-2 border-border pl-6 sm:pl-8">
+                        {experience.map((job) => (
+                            <li key={`${job.role}-${job.period}`} className="relative">
+                                <span
+                                    className={
+                                        job.current
+                                            ? "absolute -left-[33px] top-6 h-4 w-4 rounded-full border-4 border-background bg-primary ring-4 ring-primary/20 sm:-left-[41px]"
+                                            : "absolute -left-[33px] top-6 h-4 w-4 rounded-full border-4 border-background bg-muted-foreground/40 sm:-left-[41px]"
+                                    }
+                                    aria-hidden
+                                />
+                                <div className="rounded-2xl border bg-card p-5 shadow-sm sm:p-6">
+                                    <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{job.period}</p>
+                                        {job.current && <Badge className="border-none bg-primary text-primary-foreground hover:bg-primary">Current</Badge>}
                                     </div>
-                                    <p className="text-slate-400 font-medium">{job.company}</p>
-                                    <p className="text-slate-500 pt-2 text-sm leading-relaxed">
-                                        {job.desc}
-                                    </p>
+                                    <h3 className="mt-2 text-xl font-semibold">{job.role}</h3>
+                                    {job.company && (
+                                        <p className="mt-0.5 flex items-center gap-1.5 text-sm font-medium text-gold">
+                                            <Briefcase className="h-3.5 w-3.5" /> {job.company}
+                                        </p>
+                                    )}
+                                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{job.summary}</p>
+                                    {job.highlights && (
+                                        <ul className="mt-4 space-y-2">
+                                            {job.highlights.map((h) => (
+                                                <li key={h} className="flex gap-2 text-sm">
+                                                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                                                    <span>{h}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
+                </div>
+            </section>
+
+            {/* Client & team projects */}
+            <section id="client-work" className="py-16 md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading
+                        eyebrow="Client & team projects"
+                        title="Work I've delivered"
+                        description="Client and team projects from my DevOps work so far."
+                    />
+                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        {clientProjects.map((project) => (
+                            <article key={project.title} className="flex flex-col rounded-2xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                                <div className="flex items-start justify-between gap-3">
+                                    <h3 className="text-xl font-semibold">{project.title}</h3>
+                                    {project.company && (
+                                        <Badge variant="outline" className="shrink-0 border-gold/40 text-gold">{project.company}</Badge>
+                                    )}
+                                </div>
+                                <p className="mt-1 text-sm font-medium text-primary">{project.role}</p>
+                                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{project.summary}</p>
+                                <div className="mt-5 flex flex-wrap gap-2">
+                                    {project.tags.map((tag) => (
+                                        <Badge key={tag} variant="secondary" className="font-normal">{tag}</Badge>
+                                    ))}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Toolbox */}
+            <section id="toolbox" className="border-t bg-secondary/40 py-16 md:py-24">
+                <div className="container space-y-12">
+                    <SectionHeading eyebrow="Toolbox" title="What I work with every day" />
+                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                        {toolbox.map((group) => (
+                            <div key={group.title} className="rounded-2xl border bg-card p-6 shadow-sm">
+                                <group.icon className="h-7 w-7 text-primary" />
+                                <h3 className="mt-4 text-lg font-semibold">{group.title}</h3>
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    {group.skills.map((skill) => (
+                                        <Badge key={skill} variant="outline" className="font-normal">{skill}</Badge>
+                                    ))}
                                 </div>
                             </div>
                         ))}
@@ -334,74 +328,40 @@ export default function DevOpsPage() {
                 </div>
             </section>
 
-            {/* Client & Team Projects */}
-            <section className="w-full py-12 md:py-24 bg-slate-900/30">
-                <div className="container px-4 md:px-6">
-                    <h2 className="text-3xl font-bold tracking-tighter mb-2 text-white">Client &amp; Team Projects</h2>
-                    <p className="text-slate-400 mb-12 max-w-[700px]">Work I&apos;ve delivered for clients and for my team.</p>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {[
-                            { title: "Deluxe Corporation", role: "IaC Engineer", desc: "Automated infrastructure provisioning with Terraform and Ansible.", tags: ["IaC", "Terraform"] },
-                            { title: "Net Number Migrations", role: "Lead", desc: "Planned and ran a cloud migration with zero downtime.", tags: ["Migration", "Cloud"] },
-                            { title: "Observability Suite", role: "Internal", desc: "Set up full-stack monitoring with Prometheus and Grafana.", tags: ["Monitoring", "Chaos Mesh"] },
-                            { title: "IACT Tool", role: "Developer", desc: "An internal tool that speeds up day-to-day work for QA teams.", tags: ["Internal", "Tooling"] },
-                        ].map((project) => (
-                            <Card key={project.title} className="bg-slate-950 border-slate-800 text-slate-300">
-                                <CardHeader>
-                                    <div className="flex justify-between items-start">
-                                        <div>
-                                            <CardTitle className="text-white text-xl">{project.title}</CardTitle>
-                                            <CardDescription className="text-green-500/80 mt-1">{project.role}</CardDescription>
+            {/* Connect */}
+            <section className="py-16 md:py-24">
+                <div className="container">
+                    <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-primary-foreground sm:px-12 md:py-16">
+                        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold/30 blur-3xl" aria-hidden />
+                        <div className="relative grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+                            <div className="space-y-4">
+                                <h2 className="text-3xl font-semibold sm:text-4xl">Let&apos;s work together</h2>
+                                <p className="max-w-lg text-primary-foreground/80">
+                                    Need help with a pipeline, a cloud migration or a security review? Or just want to talk about
+                                    Sip &amp; Shelf or Aegis? My full portfolio and work history are one click away.
+                                </p>
+                            </div>
+                            <div className="grid gap-3">
+                                {[
+                                    { icon: Linkedin, label: "LinkedIn", sub: "Work history & updates", href: founderLinks.linkedin },
+                                    { icon: Globe, label: "Portfolio", sub: "Projects & case studies", href: founderLinks.portfolio },
+                                    { icon: Github, label: "GitHub", sub: "Code, including Aegis", href: founderLinks.github },
+                                ].map((link) => (
+                                    <Link
+                                        key={link.label}
+                                        href={link.href}
+                                        {...external}
+                                        className="group flex items-center gap-4 rounded-xl bg-primary-foreground/10 px-5 py-4 transition-colors hover:bg-primary-foreground/20"
+                                    >
+                                        <link.icon className="h-5 w-5 shrink-0" />
+                                        <div className="flex-1">
+                                            <p className="font-semibold">{link.label}</p>
+                                            <p className="text-xs text-primary-foreground/70">{link.sub}</p>
                                         </div>
-                                        <Code className="h-5 w-5 text-slate-600" />
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-sm text-slate-400 mb-6 min-h-[40px]">
-                                        {project.desc}
-                                    </p>
-                                    <div className="flex gap-2">
-                                        {project.tags.map(tag => (
-                                            <Badge key={tag} variant="secondary" className="bg-slate-800 text-slate-300 hover:bg-slate-700">
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Portfolio / Connect */}
-            <section className="w-full py-16 md:py-24 border-t border-slate-800">
-                <div className="container px-4 md:px-6">
-                    <div className="mx-auto max-w-3xl text-center space-y-6">
-                        <Rocket className="h-10 w-10 text-green-500 mx-auto" />
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-white">Let&apos;s work together</h2>
-                        <p className="text-slate-400 md:text-lg font-sans">
-                            Need help with a pipeline, a cloud migration or a security review, or just want to talk about Sip &amp; Shelf
-                            or Aegis? My full portfolio and work history are linked below.
-                        </p>
-                        <div className="grid sm:grid-cols-3 gap-4 pt-4 text-left">
-                            {[
-                                { icon: Linkedin, label: "LinkedIn", sub: "Work history & updates", href: founderLinks.linkedin, color: "text-blue-400" },
-                                { icon: Globe, label: "Portfolio", sub: "Projects & case studies", href: founderLinks.portfolio, color: "text-green-400" },
-                                { icon: Github, label: "GitHub", sub: "Code, including Aegis", href: founderLinks.github, color: "text-slate-200" },
-                            ].map(link => (
-                                <Link key={link.label} href={link.href} {...external} className="group block">
-                                    <div className="flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-900/60 p-4 group-hover:border-green-500/50 transition-colors">
-                                        <link.icon className={`h-6 w-6 shrink-0 ${link.color}`} />
-                                        <div className="min-w-0">
-                                            <p className="font-semibold text-slate-200 flex items-center gap-1">
-                                                {link.label} <ExternalLink className="h-3 w-3 text-slate-500" />
-                                            </p>
-                                            <p className="text-xs text-slate-500">{link.sub}</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
+                                        <ArrowUpRight className="h-4 w-4 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
