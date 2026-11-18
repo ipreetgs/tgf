@@ -1,17 +1,8 @@
-"use client"
-
-import { useState } from "react"
+import { Suspense } from "react"
 import Link from "next/link"
-import { Briefcase, Github, Globe, Instagram, Linkedin, Mail, Send, Share2, ArrowUpRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { cn } from "@/lib/utils"
+import { Briefcase, Github, Globe, Instagram, Linkedin, Mail, Share2, ArrowUpRight } from "lucide-react"
+import { ContactForm, CONTACT_EMAIL } from "@/components/contact-form"
 import { founderLinks, sipAndShelfLinks, tgfSocials } from "@/lib/links"
-
-const EMAIL = "ipreetgs@icloud.com"
-
-const topics = ["Farm order", "Sip & Shelf", "DevOps work", "Books", "Just saying hi"]
 
 const socialGroups = [
     {
@@ -44,136 +35,59 @@ const socialGroups = [
 ]
 
 export default function ContactPage() {
-    const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" })
-    const [topic, setTopic] = useState<string | null>(null)
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        const { name, email, subject, message } = formData
-        const fullSubject = [topic, subject].filter(Boolean).join(": ") || "Contact from TGF website"
-        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-        window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(body)}`
-    }
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target
-        setFormData((prev) => ({ ...prev, [name]: value }))
-    }
-
     return (
-        <div className="flex flex-col">
-            {/* Header */}
-            <section className="bg-grain border-b">
-                <div className="container max-w-3xl py-16 text-center md:py-20">
-                    <p className="eyebrow">Contact</p>
-                    <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Let&apos;s connect</h1>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                        Want to order from the farm, ask about Sip &amp; Shelf, talk tech, or just say hi? Drop a message and
-                        I&apos;ll get back to you.
+        <div className="flex flex-col gap-3">
+            <section className="pb-12 pt-16 text-center md:pb-16 md:pt-24">
+                <div className="container animate-fade-up">
+                    <h1 className="text-[clamp(2.75rem,7vw,5rem)] leading-[1.03] tracking-[-0.035em]">Let&apos;s connect.</h1>
+                    <p className="mx-auto mt-5 max-w-2xl text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.35] text-muted-foreground">
+                        Want to order from the farm, ask about the book or Sip &amp; Shelf, talk tech, or just say hi? Drop a message.
                     </p>
                 </div>
             </section>
 
-            <section className="py-12 md:py-20">
-                <div className="container grid max-w-6xl gap-10 lg:grid-cols-[1.2fr_1fr]">
-                    {/* Form */}
-                    <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
-                        <h2 className="text-2xl font-semibold">Send a message</h2>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            This opens your email app with your message ready to send.
-                        </p>
-
-                        <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-                            <fieldset className="space-y-2">
-                                <legend className="text-sm font-medium">What&apos;s it about?</legend>
-                                <div className="flex flex-wrap gap-2 pt-1">
-                                    {topics.map((t) => (
-                                        <button
-                                            key={t}
-                                            type="button"
-                                            aria-pressed={topic === t}
-                                            onClick={() => setTopic(topic === t ? null : t)}
-                                            className={cn(
-                                                "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
-                                                topic === t
-                                                    ? "border-primary bg-primary text-primary-foreground"
-                                                    : "bg-background text-muted-foreground hover:border-primary hover:text-foreground"
-                                            )}
-                                        >
-                                            {t}
-                                        </button>
-                                    ))}
-                                </div>
-                            </fieldset>
-
-                            <div className="grid gap-5 sm:grid-cols-2">
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="text-sm font-medium">Name</label>
-                                    <Input id="name" name="name" autoComplete="name" placeholder="Your name" required value={formData.name} onChange={handleChange} className="h-11 rounded-xl" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-medium">Email</label>
-                                    <Input id="email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required value={formData.email} onChange={handleChange} className="h-11 rounded-xl" />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="subject" className="text-sm font-medium">
-                                    Subject <span className="font-normal text-muted-foreground">(optional)</span>
-                                </label>
-                                <Input id="subject" name="subject" placeholder="e.g. 5 litres of milk a week" value={formData.subject} onChange={handleChange} className="h-11 rounded-xl" />
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium">Message</label>
-                                <Textarea id="message" name="message" placeholder="Write your message here…" className="min-h-[150px] rounded-xl" required value={formData.message} onChange={handleChange} />
-                            </div>
-                            <Button type="submit" size="lg" className="w-full">
-                                <Send className="h-4 w-4" /> Send email
-                            </Button>
-                            <p className="text-center text-xs text-muted-foreground">
-                                Prefer your own email app? Write to{" "}
-                                <a href={`mailto:${EMAIL}`} className="font-medium text-primary hover:underline">{EMAIL}</a>
-                            </p>
-                        </form>
+            <div className="mx-3 mb-3 grid gap-3 lg:grid-cols-[1.3fr_1fr]">
+                <section aria-labelledby="form-title" className="rounded-tile bg-muted p-7 md:p-12">
+                    <h2 id="form-title" className="text-[clamp(1.75rem,3vw,2.25rem)] leading-tight">Send a message</h2>
+                    <div className="mt-8">
+                        <Suspense fallback={<p className="text-muted-foreground">Loading form…</p>}>
+                            <ContactForm />
+                        </Suspense>
                     </div>
+                </section>
 
-                    {/* Socials */}
-                    <aside className="space-y-8">
-                        {socialGroups.map((group) => (
-                            <div key={group.title} className="space-y-3">
-                                <h2 className="text-lg font-semibold">{group.title}</h2>
-                                <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                                    {group.links.map((link) => (
-                                        <li key={link.url}>
-                                            <Link
-                                                href={link.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="group flex items-center gap-3 rounded-xl border bg-card px-4 py-3 transition-all hover:border-primary hover:shadow-sm"
-                                            >
-                                                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-primary">
-                                                    <link.icon className="h-4 w-4" />
-                                                </span>
-                                                <span className="min-w-0 flex-1">
-                                                    <span className="block text-sm font-medium">{link.name}</span>
-                                                    <span className="block truncate text-xs text-muted-foreground">{link.handle}</span>
-                                                </span>
-                                                <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-
-                        <a
-                            href={`mailto:${EMAIL}`}
-                            className="flex items-center gap-3 rounded-2xl border border-gold/30 bg-gold/10 p-5 text-sm font-medium transition-colors hover:bg-gold/15"
-                        >
-                            <Mail className="h-5 w-5 text-gold" /> Email directly: {EMAIL}
-                        </a>
-                    </aside>
-                </div>
-            </section>
+                <aside aria-label="Other ways to reach us" className="flex flex-col gap-3">
+                    <a
+                        href={`mailto:${CONTACT_EMAIL}`}
+                        className="flex items-center gap-4 rounded-tile bg-ink p-7 text-ink-foreground transition-opacity hover:opacity-90 md:p-9"
+                    >
+                        <Mail className="h-6 w-6 shrink-0 text-[#46C98A]" />
+                        <span>
+                            <span className="block text-[19px] font-semibold">Email directly</span>
+                            <span className="block break-all text-[15px] text-ink-muted">{CONTACT_EMAIL}</span>
+                        </span>
+                    </a>
+                    {socialGroups.map((group) => (
+                        <div key={group.title} className="rounded-tile bg-muted p-7 md:p-9">
+                            <h2 className="text-[21px]">{group.title}</h2>
+                            <ul className="mt-4 divide-y divide-border">
+                                {group.links.map((link) => (
+                                    <li key={link.url}>
+                                        <Link href={link.url} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 py-3">
+                                            <link.icon className="h-[18px] w-[18px] shrink-0 text-foreground/70" />
+                                            <span className="min-w-0 flex-1">
+                                                <span className="block text-[15px] font-medium">{link.name}</span>
+                                                <span className="block truncate text-[13px] text-muted-foreground">{link.handle}</span>
+                                            </span>
+                                            <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </aside>
+            </div>
         </div>
     )
 }

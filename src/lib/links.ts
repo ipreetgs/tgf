@@ -20,3 +20,9 @@ export const sipAndShelfLinks = {
 export const aegisLinks = {
     repo: "https://github.com/ipreetgs/aegis",
 }
+
+export const bookLinks = {
+    site: "https://artofattractionbook.web.app/",
+    buy: "https://ipreet.gumroad.com/l/ArtOfAttrection",
+    call: "https://calendly.com/ipreetgs/30min",
+}

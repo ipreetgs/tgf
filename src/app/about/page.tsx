@@ -1,18 +1,16 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import {
-    Github, Linkedin, Instagram, Facebook, Globe, MapPin, Mail, ArrowRight, ArrowUpRight,
-    Sprout, Terminal, BookOpen, Coffee, Shield,
-} from "lucide-react"
+import { Github, Linkedin, Instagram, Facebook, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { SectionHeading } from "@/components/section-heading"
-import { aegisLinks, founderLinks, sipAndShelfLinks } from "@/lib/links"
+import { ChevronLink } from "@/components/chevron-link"
+import { aegisLinks, bookLinks, founderLinks, sipAndShelfLinks } from "@/lib/links"
 import { experience } from "@/lib/portfolio"
 
 export const metadata: Metadata = {
-    title: "About the Founder",
-    description: "Gurpreet Singh: Senior DevOps engineer, farmer, author, and founder of TGF and Sip & Shelf.",
+    title: "About the founder",
+    description: "Gurpreet Singh: Senior DevOps Engineer with 5+ years of experience, farmer, author, and founder of TGF Group and Sip & Shelf.",
+    alternates: { canonical: "/about" },
 }
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const
@@ -25,157 +23,134 @@ const socials = [
     { label: "Portfolio", href: founderLinks.portfolio, icon: Globe },
 ]
 
-const hats = [
-    { icon: Terminal, title: "DevOps engineer", text: "Pipelines, cloud and reliability, for over 4.5 years." },
-    { icon: Sprout, title: "Farmer", text: "Organic milk, ghee and grain from our fields in Firozpur." },
-    { icon: BookOpen, title: "Author", text: "Writing about people, connection and balance." },
-    { icon: Coffee, title: "Founder", text: "Building Sip & Shelf, a cafe-based book sharing app." },
+const roles = [
+    { title: "DevOps engineer", text: "Pipelines, cloud and reliability, for 5+ years.", href: "/devops" },
+    { title: "Farmer", text: "Organic milk, ghee and grain from Firozpur.", href: "/farming" },
+    { title: "Author", text: "Art of Attraction, on people and connection.", href: "/books" },
+    { title: "Founder", text: "TGF Group, and Sip & Shelf as its CEO.", href: "/devops/products" },
 ]
 
 export default function AboutPage() {
-    const currentRole = experience.find((job) => job.current)
+    const role = experience.find((job) => job.current)?.role ?? "Senior DevOps Engineer"
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-3">
             {/* Intro */}
-            <section className="bg-grain border-b">
-                <div className="container grid items-center gap-12 py-16 md:grid-cols-[1.3fr_1fr] md:py-24">
-                    <div className="space-y-6 text-center md:text-left">
-                        <p className="eyebrow">Founder · TGF &amp; Sip &amp; Shelf</p>
-                        <h1 className="text-5xl font-semibold sm:text-6xl">Gurpreet Singh</h1>
-                        <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground md:mx-0 md:text-xl">
-                            Technologist by profession, farmer by heart. I spend my days automating cloud infrastructure and
-                            the rest of my time on the farm, writing, and building things people can actually use.
+            <section className="mx-3 mt-3 overflow-hidden rounded-tile bg-muted">
+                <div className="grid items-center gap-10 px-6 py-14 md:grid-cols-[1fr_minmax(0,380px)] md:gap-16 md:px-16 md:py-20">
+                    <div className="animate-fade-up text-center md:text-left">
+                        <h1 className="text-[clamp(2.75rem,6.5vw,4.75rem)] leading-[1.03] tracking-[-0.035em]">Gurpreet Singh</h1>
+                        <p className="mt-3 text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium tracking-[-0.02em] text-muted-foreground">
+                            Founder of TGF Group
                         </p>
-                        <ul className="flex flex-wrap justify-center gap-2 md:justify-start">
+                        <p className="mx-auto mt-6 max-w-xl text-[19px] leading-relaxed md:mx-0">
+                            Technologist by profession, farmer by heart. I spend my days automating cloud infrastructure and the rest
+                            of my time on the farm, writing, and building things people can actually use.
+                        </p>
+                        <ul className="mt-8 flex flex-wrap justify-center gap-2 md:justify-start">
                             {socials.map(({ label, href, icon: Icon }) => (
                                 <li key={label}>
-                                    <Button asChild variant="outline" size="icon">
-                                        <Link href={href} {...external} aria-label={label}>
-                                            <Icon className="h-4 w-4" />
-                                        </Link>
-                                    </Button>
+                                    <Link
+                                        href={href}
+                                        {...external}
+                                        aria-label={label}
+                                        className="grid h-11 w-11 place-items-center rounded-full bg-background text-foreground/75 transition-colors hover:text-foreground"
+                                    >
+                                        <Icon className="h-[18px] w-[18px]" />
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
-                    <div className="relative mx-auto w-64 sm:w-72 md:w-80">
-                        <div className="absolute -inset-3 -z-10 -rotate-3 rounded-[2rem] bg-primary/15" aria-hidden />
-                        <div className="relative aspect-[3/4] overflow-hidden rounded-[1.75rem] border-4 border-background shadow-2xl">
-                            <Image src="/me.jpg" alt="Gurpreet Singh" fill priority sizes="320px" className="object-cover" />
-                        </div>
+                    <div className="relative mx-auto aspect-[3/4] w-64 overflow-hidden rounded-[22px] md:w-full">
+                        <Image src="/me.jpg" alt="Gurpreet Singh" fill priority sizes="(min-width: 768px) 380px, 256px" className="object-cover" />
                     </div>
                 </div>
             </section>
 
-            {/* Many hats */}
-            <section className="py-12">
-                <div className="container">
-                    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        {hats.map((hat) => (
-                            <li key={hat.title} className="rounded-2xl border bg-card p-5 shadow-sm">
-                                <hat.icon className="h-6 w-6 text-primary" />
-                                <p className="mt-3 font-serif text-lg font-semibold">{hat.title}</p>
-                                <p className="mt-1 text-sm text-muted-foreground">{hat.text}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+            {/* Roles */}
+            <section aria-label="What I do" className="mx-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {roles.map((r) => (
+                    <Link key={r.title} href={r.href} className="group rounded-tile bg-muted p-8 transition-colors hover:bg-accent">
+                        <h2 className="text-[24px] leading-tight">{r.title}</h2>
+                        <p className="mt-2 text-muted-foreground">{r.text}</p>
+                        <span className="mt-4 inline-block text-primary group-hover:underline">Learn more ›</span>
+                    </Link>
+                ))}
             </section>
 
             {/* Story */}
-            <section className="pb-16 md:pb-24">
-                <div className="container grid gap-12 lg:grid-cols-[1fr_320px]">
-                    <article className="max-w-2xl space-y-5 text-lg leading-relaxed text-foreground/85">
-                        <SectionHeading eyebrow="My story" title="Two jobs with more in common than you'd think" className="mb-8" />
+            <section aria-labelledby="story-title" className="py-20 md:py-28">
+                <div className="container max-w-3xl">
+                    <h2 id="story-title" className="text-center text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.07]">
+                        Two jobs with more in common than you&apos;d think.
+                    </h2>
+                    <div className="mt-12 space-y-6 text-[19px] leading-[1.6] text-foreground/85">
                         <p>
-                            I&apos;m a <strong>DevOps engineer</strong> and a <strong>farmer</strong>. People are often surprised by
-                            that mix, but the two jobs have a lot in common. Servers and crops both need patience, routine and
-                            someone who notices small problems before they turn into big ones.
+                            I&apos;m a <strong className="font-semibold text-foreground">DevOps engineer</strong> and a{" "}
+                            <strong className="font-semibold text-foreground">farmer</strong>. People are often surprised by that mix,
+                            but the two jobs have a lot in common. Servers and crops both need patience, routine and someone who
+                            notices small problems before they turn into big ones.
                         </p>
                         <p>
-                            I started in hands-on network security, then spent four years at TestingXperts building CI/CD
-                            pipelines, automating infrastructure with Terraform and Ansible, and leading cloud migrations. After
-                            that I joined Opstree as a Senior DevOps Specialist, working on client projects such as Tripare and
-                            HRC. Today I work as a {currentRole?.role ?? "Senior DevOps Engineer"}.
+                            In 5+ years I&apos;ve moved from hands-on network security to four years at TestingXperts, building CI/CD
+                            pipelines, automating infrastructure with Terraform and Ansible, and leading cloud migrations. I then
+                            joined Opstree as a Senior DevOps Specialist, working on client projects such as Tripare and HRC. Today I
+                            work as a {role}.
                         </p>
                         <p>
-                            At <strong>TGF</strong>, I bring modern methods to traditional farming. We care about the purity of
-                            our buffalo milk and the quality of our Basmati harvest the same way I care about a production
-                            deployment: every detail counts.
+                            At <strong className="font-semibold text-foreground">TGF</strong>, I bring modern methods to traditional
+                            farming. We don&apos;t just grow crops; we cultivate sustainability and health. Whether it&apos;s the purity of
+                            our buffalo milk or the quality of our Basmati harvest, I bring the same attention to detail to the farm as
+                            I do to a production deployment.
                         </p>
                         <p>
-                            I&apos;m also the founder and CEO of <strong>Sip &amp; Shelf</strong>, an app that lets readers lend,
-                            swap and sell their old books and pick them up at a nearby cafe. I wanted a reason to read more and
-                            to meet the people who read too. On the engineering side, I build <strong>Aegis</strong>, an
-                            open-source vulnerability-assessment framework for IT and DevOps teams.
+                            I&apos;m also the founder and CEO of <strong className="font-semibold text-foreground">Sip &amp; Shelf</strong>,
+                            an app that lets readers lend, swap and sell their old books and pick them up at a nearby cafe. On the
+                            engineering side, I build <strong className="font-semibold text-foreground">Aegis</strong>, an open-source
+                            vulnerability-assessment framework for IT and DevOps teams.
                         </p>
                         <p>
-                            And when I write, as in <em>&quot;The Art of Attraction&quot;</em>, it&apos;s about people: how we
-                            connect, and how to live a balanced life.
+                            My writing, particularly <em>Art of Attraction</em>, is where these worlds meet: exploring human
+                            connection, philosophy and the subtle art of living a balanced life.
                         </p>
+                    </div>
+                </div>
+            </section>
 
-                        <div className="grid gap-4 pt-6 sm:grid-cols-2">
-                            {[
-                                { title: "Continuous learning", text: "Technology changes every year, and so do I. Staying curious is part of the job." },
-                                { title: "Sustainable living", text: "Using good technology without losing touch with the land and how food is grown." },
-                            ].map((value) => (
-                                <div key={value.title} className="rounded-2xl border bg-secondary/40 p-5">
-                                    <p className="font-serif text-lg font-semibold">{value.title}</p>
-                                    <p className="mt-1 text-sm text-muted-foreground">{value.text}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </article>
+            {/* Philosophy */}
+            <section aria-labelledby="philosophy-title" className="mx-3 rounded-tile bg-ink px-6 py-16 text-ink-foreground md:px-16 md:py-20">
+                <h2 id="philosophy-title" className="text-center text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.07]">My philosophy.</h2>
+                <div className="mx-auto mt-12 grid max-w-4xl gap-10 md:grid-cols-2">
+                    <div>
+                        <h3 className="text-[24px]">Continuous learning</h3>
+                        <p className="mt-2 text-[17px] leading-relaxed text-ink-muted">
+                            Technology evolves, and so do I. Staying ahead of the curve is not just a job requirement, but a way of life.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 className="text-[24px]">Sustainable living</h3>
+                        <p className="mt-2 text-[17px] leading-relaxed text-ink-muted">
+                            Balancing high-tech solutions with grounded, eco-friendly farming practices.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-                    {/* Sidebar */}
-                    <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
-                        <div className="space-y-4 rounded-2xl border bg-card p-6 shadow-sm">
-                            <div className="flex items-start gap-3">
-                                <MapPin className="mt-0.5 h-5 w-5 text-muted-foreground" />
-                                <div>
-                                    <p className="text-sm font-medium">Based in</p>
-                                    <p className="text-sm text-muted-foreground">Firozpur, Punjab · working globally</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3">
-                                <Mail className="mt-0.5 h-5 w-5 text-muted-foreground" />
-                                <div>
-                                    <p className="text-sm font-medium">Say hello</p>
-                                    <Link href="/contact" className="text-sm text-primary hover:underline">Send me a message</Link>
-                                </div>
-                            </div>
-                        </div>
-
-                        <nav aria-label="Quick links" className="rounded-2xl border bg-secondary/40 p-6">
-                            <p className="mb-3 font-semibold">Quick links</p>
-                            <ul className="space-y-1 text-sm">
-                                {[
-                                    { label: "My IT-DevOps work", href: "/devops", icon: Terminal },
-                                    { label: "Read \"Art of Attraction\"", href: "/books", icon: BookOpen },
-                                    { label: "My portfolio", href: founderLinks.portfolio, icon: Globe, ext: true },
-                                    { label: "Try Sip & Shelf", href: sipAndShelfLinks.site, icon: Coffee, ext: true },
-                                    { label: "Aegis on GitHub", href: aegisLinks.repo, icon: Shield, ext: true },
-                                ].map((link) => (
-                                    <li key={link.label}>
-                                        <Link
-                                            href={link.href}
-                                            {...(link.ext ? external : {})}
-                                            className="group flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-background"
-                                        >
-                                            <link.icon className="h-4 w-4 text-primary" />
-                                            <span className="flex-1">{link.label}</span>
-                                            {link.ext ? (
-                                                <ArrowUpRight className="h-3.5 w-3.5 opacity-50" />
-                                            ) : (
-                                                <ArrowRight className="h-3.5 w-3.5 opacity-50 transition-transform group-hover:translate-x-0.5" />
-                                            )}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
-                    </aside>
+            {/* Links */}
+            <section className="mx-3 mb-3 rounded-tile bg-muted px-6 py-16 text-center md:py-20">
+                <h2 className="text-[clamp(1.875rem,4vw,3rem)] leading-[1.08]">Let&apos;s connect.</h2>
+                <p className="mx-auto mt-4 max-w-xl text-[19px] text-muted-foreground">Based in Firozpur, Punjab. Working globally.</p>
+                <div className="mt-8">
+                    <Button asChild size="lg">
+                        <Link href="/contact">Send me a message</Link>
+                    </Button>
+                </div>
+                <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3 text-[17px]">
+                    <ChevronLink href={founderLinks.portfolio}>My portfolio</ChevronLink>
+                    <ChevronLink href={bookLinks.call}>Book a 30-min call</ChevronLink>
+                    <ChevronLink href={sipAndShelfLinks.site}>Try Sip &amp; Shelf</ChevronLink>
+                    <ChevronLink href={aegisLinks.repo}>Aegis on GitHub</ChevronLink>
                 </div>
             </section>
         </div>
