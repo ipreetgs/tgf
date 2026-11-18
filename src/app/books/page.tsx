@@ -148,7 +148,7 @@ export default function BooksPage() {
                             <div className="flex gap-4 justify-center md:justify-start pt-2">
                                 <Link href="/devops">
                                     <Button variant="outline" className="text-amber-100 border-amber-700 hover:bg-amber-900 hover:text-white">
-                                        View Other Ventures
+                                        See My IT-DevOps Work
                                     </Button>
                                 </Link>
                                 <Link href="https://linkedin.com/in/ipreetgs" target="_blank">

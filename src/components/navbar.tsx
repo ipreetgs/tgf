@@ -12,7 +12,7 @@ const branches = [
     { name: "Home", href: "/" },
     { name: "Farming", href: "/farming", color: "text-green-600" },
     { name: "Books", href: "/books", color: "text-amber-700" },
-    { name: "DevOps", href: "/devops", color: "text-blue-600" },
+    { name: "IT-DevOps", href: "/devops", color: "text-blue-600" },
     { name: "Perfume", href: "/perfume", color: "text-purple-600" },
     { name: "About", href: "/about", color: "text-slate-600" },
 ]

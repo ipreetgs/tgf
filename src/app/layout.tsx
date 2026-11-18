@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "TGF Group",
-  description: "The parent company for Farming, Books, DevOps, and Perfume businesses.",
+  description: "TGF Group from Firozpur, Punjab: organic farming, books, IT-DevOps and perfume.",
 };
 
 export default function RootLayout({
